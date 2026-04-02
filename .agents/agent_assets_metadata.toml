@@ -1,0 +1,20 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "LTDc8cUo_xwTFx2Dct8y8"
+uri = "file://client/src/assets/images/hero-bg.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "aquJmBfg_aJbK0RecIvHh"
+uri = "file://client/src/assets/images/project-sober.png"
+type = "image"
+title = "generated_image"
+
+[[generated]]
+id = "X3ymXY6y4ng1J2cmVnyEu"
+uri = "file://client/src/assets/images/project-sendit.png"
+type = "image"
+title = "generated_image"
