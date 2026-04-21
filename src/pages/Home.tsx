@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { Link } from "react-router-dom";
 
 /** Hero headlines — one is randomly selected on each page load */
 const HERO_HEADLINES = [
@@ -11,7 +12,6 @@ const HERO_HEADLINES = [
 
 import heroBg from "@/assets/images/hero-bg.png";
 import projectSober from "@/assets/images/project-sober.png";
-import projectSendIt from "@/assets/images/project-sendit.png";
 
 function NavBar() {
   const [scrolled, setScrolled] = useState(false);
@@ -48,8 +48,9 @@ function NavBar() {
         <nav className="hidden md:flex items-center gap-8">
           {[
             { label: "About", href: "#about" },
-            { label: "Services", href: "#services" },
+            { label: "What We Do", href: "#services" },
             { label: "Portfolio", href: "#portfolio" },
+            { label: "Support", href: "#support" },
             { label: "Contact", href: "#contact" },
           ].map((link) => (
             <a
@@ -93,8 +94,9 @@ function NavBar() {
           <nav className="max-w-6xl mx-auto px-6 py-6 flex flex-col gap-4">
             {[
               { label: "About", href: "#about" },
-              { label: "Services", href: "#services" },
+              { label: "What We Do", href: "#services" },
               { label: "Portfolio", href: "#portfolio" },
+              { label: "Support", href: "#support" },
               { label: "Contact", href: "#contact" },
             ].map((link) => (
               <a
@@ -233,19 +235,12 @@ function Philosophy() {
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
           >
-            <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-4">Our Ethos</p>
+            <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-4">About</p>
             <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ fontFamily: "var(--font-display)" }}>
-              The "Button Rock" Philosophy
+              Built by a founder who ships
             </h2>
-            <p className="text-muted-foreground text-lg mb-6 leading-relaxed">
-              Named after the beautiful state park near our Lyons, CO headquarters,
-              our name carries a double meaning. The "button" nods to keys on a keyboard
-              or controls in a lab, while the "rock" grounds us in our rugged, outdoorsy Colorado roots.
-            </p>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Most enterprise software is built for corporations, not the humans who
-              use it every day. We're changing that. We build original IP with a relentless
-              focus on intuitive design, human psychology, and solid engineering.
+              Greg is the founder of Button Rock Labs. He's spent three decades shipping products across telecom, healthcare tech, and fintech — most recently seven years as CEO of iVitaFi, a patient financing platform reaching 400+ healthcare locations nationwide. He builds for real people, not spec sheets, and his best teams have always moved with a bias toward action.
             </p>
           </motion.div>
 
@@ -277,13 +272,29 @@ function Philosophy() {
 function Services() {
   return (
     <section id="services" className="py-28">
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center max-w-2xl mx-auto">
-          <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-4">What We Do</p>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: "var(--font-display)" }}>
-            Services
+      <div className="max-w-3xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-4">Our Approach</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-8" style={{ fontFamily: "var(--font-display)" }}>
+            What We Do
           </h2>
-        </div>
+          <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
+            <p>
+              Button Rock Labs is a product studio. We build and ship our own apps in healthcare, wellness, behavioral health, and lifestyle — categories where real user behavior is the only thing that matters.
+            </p>
+            <p>
+              Every product starts from a real community and gets tailored to that audience. We move with a bias toward action, test against actual users early, and build for the person on the other end of the screen — not the spec sheet.
+            </p>
+            <p>
+              Our team has spent three decades shipping products in regulated markets, including telecom, healthcare technology, and fintech. That background shapes how we approach trust, privacy, and the long arc of what it takes to get a product into someone's daily life.
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
@@ -303,7 +314,7 @@ function Products() {
           </p>
         </div>
 
-        <div className="space-y-32">
+        <div>
           {/* Sober Motivation */}
           <motion.div
             data-testid="card-project-sober"
@@ -351,55 +362,37 @@ function Products() {
               </p>
             </div>
           </motion.div>
-
-          {/* Send It */}
-          <motion.div
-            data-testid="card-project-sendit"
-            className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7 }}
-          >
-            <div>
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-[11px] font-semibold uppercase tracking-wider mb-5">
-                <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground" />
-                In Development
-              </span>
-              <h3 className="text-2xl md:text-3xl font-bold mb-2" style={{ fontFamily: "var(--font-display)" }}>
-                Send It
-              </h3>
-              <p className="text-primary text-sm font-medium mb-4">
-                A social network built for climbers.
-              </p>
-              <p className="text-muted-foreground text-base mb-6 leading-relaxed">
-                Route discovery, topo maps, GPS tracking, and a social feed designed around the climbing community. Built on the same community engine as Sober Motivation — proving the platform scales across verticals.
-              </p>
-              <div className="grid grid-cols-2 gap-x-6 gap-y-2 mb-6">
-                {["Route discovery & topos", "GPS trail tracking", "Social feed & DMs", "Climbing community channels"].map((item, i) => (
-                  <div key={i} className="flex items-center gap-2 text-sm text-foreground">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--primary))" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
-                      <polyline points="20 6 9 17 4 12"/>
-                    </svg>
-                    {item}
-                  </div>
-                ))}
-              </div>
-              <p className="text-xs text-muted-foreground">
-                Coming 2026 · Colorado Front Range beta
-              </p>
-            </div>
-
-            <div className="relative rounded-2xl overflow-hidden border border-border/50 group aspect-[4/3]">
-              <img
-                src={projectSendIt}
-                alt="Send It Climbing App"
-                className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </div>
-          </motion.div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+function Support() {
+  return (
+    <section id="support" className="py-28 bg-card border-y border-border/40">
+      <div className="max-w-3xl mx-auto px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-4">Support</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: "var(--font-display)" }}>
+            Need help with your app or design?
+          </h2>
+          <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
+            Already working with us, or running into trouble with a BRL-built app or design engagement? Reach out and we'll get back to you quickly.
+          </p>
+          <a
+            href="mailto:greg@buttonrocklabs.com?subject=Support%20Request"
+            data-testid="button-support"
+            className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
+          >
+            Contact Support
+          </a>
+        </motion.div>
       </div>
     </section>
   );
@@ -418,11 +411,10 @@ function ContactCTA() {
             Ready to build something human?
           </h2>
           <p className="text-background/70 text-lg mb-10 leading-relaxed">
-            Whether you're looking to acquire existing IP or partner on a custom solution,
-            we'd love to connect. Based in the foothills of Colorado, building for the world.
+            Reach out directly — we'd love to hear what you're working on.
           </p>
           <a
-            href="mailto:info@buttonrocklabs.com"
+            href="mailto:greg@buttonrocklabs.com"
             data-testid="button-contact"
             className="inline-flex items-center gap-2 h-14 px-10 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
           >
@@ -431,6 +423,25 @@ function ContactCTA() {
               <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
             </svg>
           </a>
+
+          <div className="mt-12 text-background/80 text-sm leading-relaxed">
+            <p className="font-semibold text-background mb-1">Greg Falconer, Founder</p>
+            <p>
+              <a href="mailto:greg@buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">
+                greg@buttonrocklabs.com
+              </a>
+            </p>
+            <p>
+              <a
+                href="tel:+12148088630"
+                aria-label="Call Button Rock Labs"
+                className="text-primary hover:opacity-80 transition-opacity"
+              >
+                (214) 808-8630
+              </a>
+            </p>
+            <p className="text-background/60">240 Leon's Pl., Lyons, CO 80540</p>
+          </div>
         </div>
 
         <div className="mt-20 pt-8 border-t border-background/15 flex flex-col md:flex-row justify-between items-center gap-4">
@@ -443,9 +454,11 @@ function ContactCTA() {
               <span className="font-semibold" style={{ color: "hsl(var(--primary))" }}>Labs</span>
             </span>
           </div>
-          <p className="text-xs text-background/50">
-            &copy; {new Date().getFullYear()} Button Rock Labs, LLC. Lyons, Colorado.
-          </p>
+          <div className="flex items-center gap-4 text-xs text-background/50">
+            <Link to="/privacy" className="hover:text-background/80 transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-background/80 transition-colors">Terms of Use</Link>
+            <span>&copy; {new Date().getFullYear()} Button Rock Labs, LLC. A Colorado limited liability company.</span>
+          </div>
         </div>
       </div>
     </footer>
@@ -460,6 +473,7 @@ export default function Home() {
       <Philosophy />
       <Services />
       <Products />
+      <Support />
       <ContactCTA />
     </div>
   );

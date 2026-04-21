@@ -22,7 +22,7 @@ Button Rock Labs (BRL) is a community app development studio based in Lyons, Col
 **Entry:** src/main.tsx → src/App.tsx → src/pages/Home.tsx (single page)
 **Styles:** src/index.css (Tailwind v4 imports, CSS custom properties via @theme)
 **Fonts:** Google Fonts loaded in index.html (Inter — weights 400, 500, 600)
-**Hosting:** IONOS shared hosting, deployed via SFTP upload of /dist contents
+**Hosting:** Cloudflare Pages, auto-deployed on push to `main` of `github.com/buttonrocklabs/website`
 **Build:** `npm run dev` (dev server, port 5000), `npm run build` (static output to /dist)
 **Config:** vite.config.ts (React plugin, Tailwind plugin, path aliases)
 
@@ -35,7 +35,8 @@ Button Rock Labs (BRL) is a community app development studio based in Lyons, Col
 │   ├── pages/Home.tsx     — entire site (NavBar, Hero, sections, footer)
 │   ├── index.css          — Tailwind v4 + CSS custom properties
 │   └── lib/utils.ts       — if present
-├── dist/                  — build output (flat, FTP-ready)
+├── dist/                  — build output (Cloudflare Pages output dir)
+├── public/                 — static assets copied as-is (includes _redirects SPA fallback)
 ├── vite.config.ts         — do not modify
 ├── tailwind.config.ts     — if present, do not modify without instruction
 ├── tsconfig.json
@@ -121,12 +122,24 @@ All prompts follow: GOAL → USER STORY → ACCEPTANCE CRITERIA → CONSTRAINTS 
 - Framer Motion is approved for animations. Keep usage tasteful and performant.
 - Tailwind utility classes preferred over inline styles.
 - Mobile responsive required. Use clamp() for fluid type.
-- The /dist output must remain flat and FTP-deployable.
+- `public/_redirects` must contain the SPA fallback line `/* /index.html 200` so React Router client-side routes (`/privacy`, `/terms`) don't 404 on direct load.
 
-### Deploy Process
-1. Run `npm run build`
-2. Upload contents of /dist to IONOS via FTP
-3. Verify at live URL
+### Deploy Process (Cloudflare Pages + GitHub)
+- **Repo:** `github.com/buttonrocklabs/website`
+- **Hosting:** Cloudflare Pages project connected to the GitHub repo
+- **Production branch:** `main` — pushes to `main` auto-build and auto-deploy to the live site
+- **Preview branches:** any non-`main` branch gets a Cloudflare Pages preview URL
+- **Build command:** `npm run build`
+- **Build output directory:** `dist`
+- **Node version:** set via Cloudflare Pages env (NODE_VERSION ≥ 20 recommended for Vite 6)
+
+Standard flow:
+1. Work on a feature branch (e.g., `claude/<name>`).
+2. Commit + push branch. Cloudflare Pages auto-generates a preview URL.
+3. Open PR against `main`; review the preview URL.
+4. Merge to `main`. Cloudflare Pages rebuilds and deploys to the production domain.
+
+Local verification before pushing: `npm run build` must succeed; the `/dist` output is what Cloudflare serves.
 
 ### What NOT to Do
 - Do not add a CMS, database, or backend

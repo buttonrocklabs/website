@@ -14,12 +14,6 @@ type = "image"
 title = "generated_image"
 
 [[generated]]
-id = "X3ymXY6y4ng1J2cmVnyEu"
-uri = "file://client/src/assets/images/project-sendit.png"
-type = "image"
-title = "generated_image"
-
-[[generated]]
 id = "gYutigJMMpWBrGN-5ZFv-"
 uri = "file://src/assets/images/hero-bg.png"
 type = "image"
@@ -28,11 +22,5 @@ title = "generated_image"
 [[generated]]
 id = "RH7-olHKR1IpwowSeWxO5"
 uri = "file://src/assets/images/project-sober.png"
-type = "image"
-title = "generated_image"
-
-[[generated]]
-id = "6z5IpNzTHCQcovqDuiGnt"
-uri = "file://src/assets/images/project-sendit.png"
 type = "image"
 title = "generated_image"
