@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BRL Logo Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --copper: #B87333;
+      --dark: #1A1B1E;
+      --surface: #2B2D31;
+      --surface-raised: #35373C;
+      --text: #F7F5F0;
+      --muted: #8B8680;
+      --border: #4A4D52;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Inter", -apple-system, sans-serif;
+      background: var(--dark);
+      color: var(--text);
+      padding: 48px 32px 96px;
+      -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 1400px; margin: 0 auto; }
+    h1 {
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 8px;
+    }
+    .eyebrow {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--copper);
+      font-weight: 600;
+      margin: 0 0 8px;
+    }
+    .subtitle {
+      color: var(--muted);
+      margin: 0 0 48px;
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 640px;
+    }
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 48px 0 24px;
+    }
+    .section-divider::before,
+    .section-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .section-divider span {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+    }
+    .card-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--copper);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0 0 6px;
+    }
+    .card-desc {
+      color: var(--muted);
+      font-size: 12.5px;
+      margin: 0 0 24px;
+      line-height: 1.5;
+    }
+    .treatments {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .treatment {
+      background: var(--dark);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px 12px 14px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .treatment-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .size-row {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 14px;
+      width: 100%;
+    }
+    .size-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+    .size-px {
+      font-size: 9px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+    }
+    /* App icon chip */
+    .chip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .chip svg { display: block; }
+    /* Copper background treatment */
+    .chip-copper { background: var(--copper); color: #fff; }
+    /* Dark background treatment */
+    .chip-dark { background: var(--dark); color: var(--copper); border: 1px solid var(--border); }
+    /* Sizes */
+    .chip-18 { width: 18px; height: 18px; border-radius: 4px; }
+    .chip-18 svg { width: 10px; height: 10px; }
+    .chip-36 { width: 36px; height: 36px; border-radius: 8px; }
+    .chip-36 svg { width: 18px; height: 18px; }
+    .chip-72 { width: 72px; height: 72px; border-radius: 16px; }
+    .chip-72 svg { width: 38px; height: 38px; }
+    .chip-144 { width: 144px; height: 144px; border-radius: 32px; }
+    .chip-144 svg { width: 80px; height: 80px; }
+    /* Spotlight row for the biggest size */
+    .spotlight {
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+      background: var(--surface-raised);
+      border-radius: 10px;
+      margin-bottom: 16px;
+    }
+    .spotlight.dark { background: var(--dark); border: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p class="eyebrow">BRL Logo Lab</p>
+    <h1>Logo exploration — two directions</h1>
+    <p class="subtitle">
+      Six candidates across two concepts: <strong style="color:var(--text)">rock with inset button</strong> and
+      <strong style="color:var(--text)">Button Rock Dam profile</strong>. Each candidate shown at three sizes
+      (18px navbar, 36px app icon, 72px hero/App Store) on both the copper brand chip and the dark inverse treatment.
+    </p>
+
+    <!-- Current logo for reference -->
+    <div class="section-divider"><span>Current logo (for comparison)</span></div>
+    <div class="grid">
+      <div class="card">
+        <p class="card-label">Current · Reference</p>
+        <h3 class="card-title">Generic mountain peak</h3>
+        <p class="card-desc">What's live today. No connection to "button" or the namesake landmark — reads as any outdoor brand.</p>
+        <div class="treatments">
+          <div class="treatment">
+            <span class="treatment-label">Copper chip</span>
+            <div class="size-row">
+              <div class="size-cell">
+                <div class="chip chip-copper chip-18">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6 8 16 10-10 4 30H4L16 6z"/></svg>
+                </div>
+                <span class="size-px">18</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-copper chip-36">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6 8 16 10-10 4 30H4L16 6z"/></svg>
+                </div>
+                <span class="size-px">36</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-copper chip-72">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6 8 16 10-10 4 30H4L16 6z"/></svg>
+                </div>
+                <span class="size-px">72</span>
+              </div>
+            </div>
+          </div>
+          <div class="treatment">
+            <span class="treatment-label">Dark / outline</span>
+            <div class="size-row">
+              <div class="size-cell">
+                <div class="chip chip-dark chip-18">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6 8 16 10-10 4 30H4L16 6z"/></svg>
+                </div>
+                <span class="size-px">18</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-dark chip-36">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6 8 16 10-10 4 30H4L16 6z"/></svg>
+                </div>
+                <span class="size-px">36</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-dark chip-72">
+                  <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 6 8 16 10-10 4 30H4L16 6z"/></svg>
+                </div>
+                <span class="size-px">72</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Option 1: Rock with inset button -->
+    <div class="section-divider"><span>Option 1 · Rock with inset button</span></div>
+    <div class="grid">
+
+      <!-- 1A: Boulder with ring button -->
+      <div class="card">
+        <p class="card-label">1A · Rock + ring</p>
+        <h3 class="card-title">Boulder with ring button</h3>
+        <p class="card-desc">Irregular boulder silhouette with a hollow ring "button" inset into the face. Most literal — tech embedded in stone.</p>
+        <div class="spotlight">
+          <div class="chip chip-copper chip-144">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 36 C5 28, 9 18, 16 15 C22 12, 30 13, 36 18 C42 22, 43 30, 41 36 C39 41, 32 42, 24 41 C16 40, 10 40, 8 36 Z"/>
+              <circle cx="24" cy="26" r="5"/>
+            </svg>
+          </div>
+        </div>
+        <div class="treatments">
+          <div class="treatment">
+            <span class="treatment-label">Copper chip</span>
+            <div class="size-row">
+              <div class="size-cell">
+                <div class="chip chip-copper chip-18"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 36 C5 28, 9 18, 16 15 C22 12, 30 13, 36 18 C42 22, 43 30, 41 36 C39 41, 32 42, 24 41 C16 40, 10 40, 8 36 Z"/><circle cx="24" cy="26" r="5"/></svg></div>
+                <span class="size-px">18</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-copper chip-36"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 36 C5 28, 9 18, 16 15 C22 12, 30 13, 36 18 C42 22, 43 30, 41 36 C39 41, 32 42, 24 41 C16 40, 10 40, 8 36 Z"/><circle cx="24" cy="26" r="5"/></svg></div>
+                <span class="size-px">36</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-copper chip-72"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 36 C5 28, 9 18, 16 15 C22 12, 30 13, 36 18 C42 22, 43 30, 41 36 C39 41, 32 42, 24 41 C16 40, 10 40, 8 36 Z"/><circle cx="24" cy="26" r="5"/></svg></div>
+                <span class="size-px">72</span>
+              </div>
+            </div>
+          </div>
+          <div class="treatment">
+            <span class="treatment-label">Dark / outline</span>
+            <div class="size-row">
+              <div class="size-cell">
+                <div class="chip chip-dark chip-18"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 36 C5 28, 9 18, 16 15 C22 12, 30 13, 36 18 C42 22, 43 30, 41 36 C39 41, 32 42, 24 41 C16 40, 10 40, 8 36 Z"/><circle cx="24" cy="26" r="5"/></svg></div>
+                <span class="size-px">18</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-dark chip-36"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 36 C5 28, 9 18, 16 15 C22 12, 30 13, 36 18 C42 22, 43 30, 41 36 C39 41, 32 42, 24 41 C16 40, 10 40, 8 36 Z"/><circle cx="24" cy="26" r="5"/></svg></div>
+                <span class="size-px">36</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-dark chip-72"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 36 C5 28, 9 18, 16 15 C22 12, 30 13, 36 18 C42 22, 43 30, 41 36 C39 41, 32 42, 24 41 C16 40, 10 40, 8 36 Z"/><circle cx="24" cy="26" r="5"/></svg></div>
+                <span class="size-px">72</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1B: Boulder with filled dot button -->
+      <div class="card">
+        <p class="card-label">1B · Rock + dot</p>
+        <h3 class="card-title">Minimal boulder with dot</h3>
+        <p class="card-desc">Same boulder silhouette with a solid filled dot as the button. Most minimal — reads clearly at 16px favicon size.</p>
+        <div class="spotlight">
+          <div class="chip chip-copper chip-144">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 36 C5 28, 9 18, 16 15 C22 12, 30 13, 36 18 C42 22, 43 30, 41 36 C39 41, 32 42, 24 41 C16 40, 10 40, 8 36 Z"/>
+              <circle cx="24" cy="26" r="3.5" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+        </div>
+        <div class="treatments">
+          <div class="treatment">
+            <span class="treatment-label">Copper chip</span>
+            <div class="size-row">
+              <div class="size-cell">
+                <div class="chip chip-copper chip-18"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 36 C5 28, 9 18, 16 15 C22 12, 30 13, 36 18 C42 22, 43 30, 41 36 C39 41, 32 42, 24 41 C16 40, 10 40, 8 36 Z"/><circle cx="24" cy="26" r="3.5" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">18</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-copper chip-36"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 36 C5 28, 9 18, 16 15 C22 12, 30 13, 36 18 C42 22, 43 30, 41 36 C39 41, 32 42, 24 41 C16 40, 10 40, 8 36 Z"/><circle cx="24" cy="26" r="3.5" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">36</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-copper chip-72"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 36 C5 28, 9 18, 16 15 C22 12, 30 13, 36 18 C42 22, 43 30, 41 36 C39 41, 32 42, 24 41 C16 40, 10 40, 8 36 Z"/><circle cx="24" cy="26" r="3.5" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">72</span>
+              </div>
+            </div>
+          </div>
+          <div class="treatment">
+            <span class="treatment-label">Dark / outline</span>
+            <div class="size-row">
+              <div class="size-cell">
+                <div class="chip chip-dark chip-18"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 36 C5 28, 9 18, 16 15 C22 12, 30 13, 36 18 C42 22, 43 30, 41 36 C39 41, 32 42, 24 41 C16 40, 10 40, 8 36 Z"/><circle cx="24" cy="26" r="3.5" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">18</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-dark chip-36"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 36 C5 28, 9 18, 16 15 C22 12, 30 13, 36 18 C42 22, 43 30, 41 36 C39 41, 32 42, 24 41 C16 40, 10 40, 8 36 Z"/><circle cx="24" cy="26" r="3.5" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">36</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-dark chip-72"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 36 C5 28, 9 18, 16 15 C22 12, 30 13, 36 18 C42 22, 43 30, 41 36 C39 41, 32 42, 24 41 C16 40, 10 40, 8 36 Z"/><circle cx="24" cy="26" r="3.5" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">72</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1C: Layered stones -->
+      <div class="card">
+        <p class="card-label">1C · Layered stones</p>
+        <h3 class="card-title">Two stones, button on top</h3>
+        <p class="card-desc">Two overlapping rock shapes (background boulder + smaller foreground stone) with a button on the front stone. Suggests depth and "studio of layered products."</p>
+        <div class="spotlight">
+          <div class="chip chip-copper chip-144">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 36 C5 28, 10 20, 16 18 C20 16, 28 18, 30 22"/>
+              <path d="M14 42 C12 36, 16 28, 22 27 C30 26, 40 30, 42 36 C42 42, 36 44, 28 43 C22 42, 16 42, 14 42 Z"/>
+              <circle cx="30" cy="34" r="3" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+        </div>
+        <div class="treatments">
+          <div class="treatment">
+            <span class="treatment-label">Copper chip</span>
+            <div class="size-row">
+              <div class="size-cell">
+                <div class="chip chip-copper chip-18"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 36 C5 28, 10 20, 16 18 C20 16, 28 18, 30 22"/><path d="M14 42 C12 36, 16 28, 22 27 C30 26, 40 30, 42 36 C42 42, 36 44, 28 43 C22 42, 16 42, 14 42 Z"/><circle cx="30" cy="34" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">18</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-copper chip-36"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 36 C5 28, 10 20, 16 18 C20 16, 28 18, 30 22"/><path d="M14 42 C12 36, 16 28, 22 27 C30 26, 40 30, 42 36 C42 42, 36 44, 28 43 C22 42, 16 42, 14 42 Z"/><circle cx="30" cy="34" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">36</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-copper chip-72"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 36 C5 28, 10 20, 16 18 C20 16, 28 18, 30 22"/><path d="M14 42 C12 36, 16 28, 22 27 C30 26, 40 30, 42 36 C42 42, 36 44, 28 43 C22 42, 16 42, 14 42 Z"/><circle cx="30" cy="34" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">72</span>
+              </div>
+            </div>
+          </div>
+          <div class="treatment">
+            <span class="treatment-label">Dark / outline</span>
+            <div class="size-row">
+              <div class="size-cell">
+                <div class="chip chip-dark chip-18"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 36 C5 28, 10 20, 16 18 C20 16, 28 18, 30 22"/><path d="M14 42 C12 36, 16 28, 22 27 C30 26, 40 30, 42 36 C42 42, 36 44, 28 43 C22 42, 16 42, 14 42 Z"/><circle cx="30" cy="34" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">18</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-dark chip-36"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 36 C5 28, 10 20, 16 18 C20 16, 28 18, 30 22"/><path d="M14 42 C12 36, 16 28, 22 27 C30 26, 40 30, 42 36 C42 42, 36 44, 28 43 C22 42, 16 42, 14 42 Z"/><circle cx="30" cy="34" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">36</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-dark chip-72"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 36 C5 28, 10 20, 16 18 C20 16, 28 18, 30 22"/><path d="M14 42 C12 36, 16 28, 22 27 C30 26, 40 30, 42 36 C42 42, 36 44, 28 43 C22 42, 16 42, 14 42 Z"/><circle cx="30" cy="34" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">72</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Option 2: Dam profile -->
+    <div class="section-divider"><span>Option 2 · Button Rock Dam profile</span></div>
+    <div class="grid">
+
+      <!-- 2A: Arch head-on -->
+      <div class="card">
+        <p class="card-label">2A · Arch + crest</p>
+        <h3 class="card-title">Arch dam, head-on view</h3>
+        <p class="card-desc">Concrete arch dam silhouette viewed head-on with a filled button at the crest. Architectural and specific to the namesake.</p>
+        <div class="spotlight">
+          <div class="chip chip-copper chip-144">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M8 40 L8 22 C8 14, 14 8, 24 8 C34 8, 40 14, 40 22 L40 40"/>
+              <path d="M4 40 L44 40"/>
+              <circle cx="24" cy="14" r="3" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+        </div>
+        <div class="treatments">
+          <div class="treatment">
+            <span class="treatment-label">Copper chip</span>
+            <div class="size-row">
+              <div class="size-cell">
+                <div class="chip chip-copper chip-18"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 40 L8 22 C8 14, 14 8, 24 8 C34 8, 40 14, 40 22 L40 40"/><path d="M4 40 L44 40"/><circle cx="24" cy="14" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">18</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-copper chip-36"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 40 L8 22 C8 14, 14 8, 24 8 C34 8, 40 14, 40 22 L40 40"/><path d="M4 40 L44 40"/><circle cx="24" cy="14" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">36</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-copper chip-72"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 40 L8 22 C8 14, 14 8, 24 8 C34 8, 40 14, 40 22 L40 40"/><path d="M4 40 L44 40"/><circle cx="24" cy="14" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">72</span>
+              </div>
+            </div>
+          </div>
+          <div class="treatment">
+            <span class="treatment-label">Dark / outline</span>
+            <div class="size-row">
+              <div class="size-cell">
+                <div class="chip chip-dark chip-18"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 40 L8 22 C8 14, 14 8, 24 8 C34 8, 40 14, 40 22 L40 40"/><path d="M4 40 L44 40"/><circle cx="24" cy="14" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">18</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-dark chip-36"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 40 L8 22 C8 14, 14 8, 24 8 C34 8, 40 14, 40 22 L40 40"/><path d="M4 40 L44 40"/><circle cx="24" cy="14" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">36</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-dark chip-72"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M8 40 L8 22 C8 14, 14 8, 24 8 C34 8, 40 14, 40 22 L40 40"/><path d="M4 40 L44 40"/><circle cx="24" cy="14" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">72</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2B: Dam curve top-down -->
+      <div class="card">
+        <p class="card-label">2B · Arc + button</p>
+        <h3 class="card-title">Dam curve, top-down view</h3>
+        <p class="card-desc">The dam's curved wall seen from above — a single arc line with a button at the apex. Most minimal and modern.</p>
+        <div class="spotlight">
+          <div class="chip chip-copper chip-144">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 34 Q24 12, 42 34"/>
+              <circle cx="24" cy="23" r="3.5" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+        </div>
+        <div class="treatments">
+          <div class="treatment">
+            <span class="treatment-label">Copper chip</span>
+            <div class="size-row">
+              <div class="size-cell">
+                <div class="chip chip-copper chip-18"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 34 Q24 12, 42 34"/><circle cx="24" cy="23" r="3.5" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">18</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-copper chip-36"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 34 Q24 12, 42 34"/><circle cx="24" cy="23" r="3.5" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">36</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-copper chip-72"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 34 Q24 12, 42 34"/><circle cx="24" cy="23" r="3.5" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">72</span>
+              </div>
+            </div>
+          </div>
+          <div class="treatment">
+            <span class="treatment-label">Dark / outline</span>
+            <div class="size-row">
+              <div class="size-cell">
+                <div class="chip chip-dark chip-18"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 34 Q24 12, 42 34"/><circle cx="24" cy="23" r="3.5" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">18</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-dark chip-36"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 34 Q24 12, 42 34"/><circle cx="24" cy="23" r="3.5" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">36</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-dark chip-72"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 34 Q24 12, 42 34"/><circle cx="24" cy="23" r="3.5" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">72</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2C: Dam cross-section -->
+      <div class="card">
+        <p class="card-label">2C · Cross-section</p>
+        <h3 class="card-title">Dam side profile with water</h3>
+        <p class="card-desc">Side view of the dam wedge holding back water, with a button at the crest — "release point" metaphor. Most literal engineering reference.</p>
+        <div class="spotlight">
+          <div class="chip chip-copper chip-144">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 40 L18 12 L28 12 L38 40 Z"/>
+              <path d="M4 22 L18 22"/>
+              <circle cx="23" cy="12" r="3" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+        </div>
+        <div class="treatments">
+          <div class="treatment">
+            <span class="treatment-label">Copper chip</span>
+            <div class="size-row">
+              <div class="size-cell">
+                <div class="chip chip-copper chip-18"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 40 L18 12 L28 12 L38 40 Z"/><path d="M4 22 L18 22"/><circle cx="23" cy="12" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">18</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-copper chip-36"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 40 L18 12 L28 12 L38 40 Z"/><path d="M4 22 L18 22"/><circle cx="23" cy="12" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">36</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-copper chip-72"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 40 L18 12 L28 12 L38 40 Z"/><path d="M4 22 L18 22"/><circle cx="23" cy="12" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">72</span>
+              </div>
+            </div>
+          </div>
+          <div class="treatment">
+            <span class="treatment-label">Dark / outline</span>
+            <div class="size-row">
+              <div class="size-cell">
+                <div class="chip chip-dark chip-18"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 40 L18 12 L28 12 L38 40 Z"/><path d="M4 22 L18 22"/><circle cx="23" cy="12" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">18</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-dark chip-36"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 40 L18 12 L28 12 L38 40 Z"/><path d="M4 22 L18 22"/><circle cx="23" cy="12" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">36</span>
+              </div>
+              <div class="size-cell">
+                <div class="chip chip-dark chip-72"><svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 40 L18 12 L28 12 L38 40 Z"/><path d="M4 22 L18 22"/><circle cx="23" cy="12" r="3" fill="currentColor" stroke="none"/></svg></div>
+                <span class="size-px">72</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</body>
+</html>
