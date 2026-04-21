@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BRL · Logo final</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --copper: #B87333;
+      --dark: #1A1B1E;
+      --surface: #2B2D31;
+      --surface-raised: #35373C;
+      --granite: #4F555C;
+      --text: #F7F5F0;
+      --light-bg: #F7F5F0;
+      --light-text: #1A1B1E;
+      --muted: #8B8680;
+      --border: #4A4D52;
+      --code-bg: #141518;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: "Inter", -apple-system, sans-serif;
+      background: var(--dark); color: var(--text);
+      padding: 48px 32px 96px; -webkit-font-smoothing: antialiased;
+    }
+    .container { max-width: 1400px; margin: 0 auto; }
+    h1 { font-size: 32px; font-weight: 600; letter-spacing: -0.02em; margin: 0 0 8px; }
+    .eyebrow {
+      font-size: 12px; text-transform: uppercase; letter-spacing: 0.15em;
+      color: var(--copper); font-weight: 600; margin: 0 0 8px;
+    }
+    .subtitle {
+      color: var(--muted); margin: 0 0 40px; font-size: 15px;
+      line-height: 1.6; max-width: 720px;
+    }
+    .section-divider { display: flex; align-items: center; gap: 16px; margin: 40px 0 20px; }
+    .section-divider::before, .section-divider::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+    .section-divider span {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em;
+      color: var(--muted); font-weight: 600;
+    }
+    .grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(520px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 24px;
+    }
+    .card-label {
+      font-size: 10px; text-transform: uppercase; letter-spacing: 0.15em;
+      color: var(--copper); margin-bottom: 6px; font-weight: 600;
+    }
+    .card-title { font-size: 17px; font-weight: 600; margin: 0 0 6px; }
+    .card-desc {
+      color: var(--muted); font-size: 13px; margin: 0 0 20px; line-height: 1.55;
+    }
+    .spotlight {
+      display: flex; justify-content: center; padding: 28px;
+      background: var(--surface-raised); border-radius: 10px; margin-bottom: 16px;
+    }
+    .treatments { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .treatment {
+      background: var(--dark); border: 1px solid var(--border);
+      border-radius: 10px; padding: 14px 8px 10px;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+    }
+    .treatment-label {
+      font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--muted); font-weight: 600;
+    }
+    .size-row {
+      display: flex; align-items: flex-end; justify-content: center; gap: 10px; width: 100%;
+    }
+    .size-cell { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+    .size-px { font-size: 9px; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .chip { display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .chip svg { display: block; }
+    .chip-copper { background: var(--copper); color: #fff; }
+    .chip-dark { background: var(--dark); color: var(--copper); border: 1px solid var(--border); }
+    .chip-granite { background: var(--granite); color: #fff; }
+    .chip-18 { width: 18px; height: 18px; border-radius: 4px; }
+    .chip-18 svg { width: 10px; height: 10px; }
+    .chip-36 { width: 36px; height: 36px; border-radius: 8px; }
+    .chip-36 svg { width: 18px; height: 18px; }
+    .chip-72 { width: 72px; height: 72px; border-radius: 16px; }
+    .chip-72 svg { width: 38px; height: 38px; }
+    .chip-144 { width: 144px; height: 144px; border-radius: 32px; }
+    .chip-144 svg { width: 80px; height: 80px; }
+    /* Source code block */
+    .source-toggle { margin-top: 18px; }
+    .source-toggle summary {
+      cursor: pointer; font-size: 11px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted);
+      padding: 8px 0; user-select: none;
+    }
+    .source-toggle summary:hover { color: var(--text); }
+    .source {
+      background: var(--code-bg); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 16px; margin: 8px 0 0;
+      font-family: "SF Mono", Monaco, Menlo, monospace;
+      font-size: 11.5px; line-height: 1.5; color: var(--text);
+      overflow-x: auto; white-space: pre;
+    }
+    /* Lockups */
+    .lockup-grid { display: flex; flex-direction: column; gap: 12px; }
+    .lockup-row {
+      display: grid; grid-template-columns: 80px 1fr 1fr; gap: 14px; align-items: center;
+    }
+    .lockup-id {
+      font-size: 11px; font-weight: 600; color: var(--copper);
+      letter-spacing: 0.05em; text-align: right;
+    }
+    .lockup {
+      display: flex; align-items: center; gap: 10px;
+      padding: 14px 20px; border-radius: 10px; border: 1px solid var(--border);
+    }
+    .lockup-dark { background: var(--dark); color: var(--text); }
+    .lockup-light { background: var(--light-bg); color: var(--light-text); border-color: #E5E1D8; }
+    .wordmark { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+    .wordmark .labs { color: var(--copper); }
+</style>
+</head>
+<body>
+  <div class="container">
+    <p class="eyebrow">Button Rock Labs · logo</p>
+    <h1>Final marks</h1>
+    <p class="subtitle">
+      Two marks locked. The original — unchanged — stays available as a fallback and for
+      places where the extra detail doesn't earn its keep. D2 is the new primary: same
+      mountain silhouette, with two diagonal button-holes enclosed in a subtle double-ring
+      bezel. Both shown across copper, dark, and granite chip treatments at 18px (favicon),
+      36px (nav), 72px (card/app icon), and 144px (hero). SVG source is in the expandable
+      block at the bottom of each card — drop it straight into your site.
+    </p>
+
+    <div class="section-divider"><span>The two marks</span></div>
+    <div class="grid">
+      <div class="card">
+        <p class="card-label">Original</p>
+        <h3 class="card-title">Current mark (unchanged)</h3>
+        <p class="card-desc">The live mark on buttonrocklabs.com today. Keep as baseline / fallback. Filled rendering matches what ships on the site.</p>
+        <div class="spotlight"><div class="chip chip-copper chip-144"><svg viewBox="0 0 48 48"><path fill="currentColor" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z"/></svg></div></div>
+        <div class="treatments"><div class="treatment"><span class="treatment-label">Copper</span><div class="size-row"><div class="size-cell"><div class="chip chip-copper chip-18"><svg viewBox="0 0 48 48"><path fill="currentColor" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z"/></svg></div><span class="size-px">18</span></div><div class="size-cell"><div class="chip chip-copper chip-36"><svg viewBox="0 0 48 48"><path fill="currentColor" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z"/></svg></div><span class="size-px">36</span></div><div class="size-cell"><div class="chip chip-copper chip-72"><svg viewBox="0 0 48 48"><path fill="currentColor" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z"/></svg></div><span class="size-px">72</span></div></div></div><div class="treatment"><span class="treatment-label">Dark / outline</span><div class="size-row"><div class="size-cell"><div class="chip chip-dark chip-18"><svg viewBox="0 0 48 48"><path fill="currentColor" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z"/></svg></div><span class="size-px">18</span></div><div class="size-cell"><div class="chip chip-dark chip-36"><svg viewBox="0 0 48 48"><path fill="currentColor" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z"/></svg></div><span class="size-px">36</span></div><div class="size-cell"><div class="chip chip-dark chip-72"><svg viewBox="0 0 48 48"><path fill="currentColor" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z"/></svg></div><span class="size-px">72</span></div></div></div><div class="treatment"><span class="treatment-label">Granite</span><div class="size-row"><div class="size-cell"><div class="chip chip-granite chip-18"><svg viewBox="0 0 48 48"><path fill="currentColor" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z"/></svg></div><span class="size-px">18</span></div><div class="size-cell"><div class="chip chip-granite chip-36"><svg viewBox="0 0 48 48"><path fill="currentColor" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z"/></svg></div><span class="size-px">36</span></div><div class="size-cell"><div class="chip chip-granite chip-72"><svg viewBox="0 0 48 48"><path fill="currentColor" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z"/></svg></div><span class="size-px">72</span></div></div></div></div>
+        <details class="source-toggle">
+          <summary>SVG source</summary>
+          <pre class="source"><code>&lt;svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;path fill="currentColor" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z"/&gt;
+&lt;/svg&gt;</code></pre>
+        </details>
+      </div>
+      <div class="card">
+        <p class="card-label">D2 · New</p>
+        <h3 class="card-title">With button detail</h3>
+        <p class="card-desc">Two button-holes on a top-left to bottom-right diagonal, enclosed by a double-ring bezel. Rounded peaks. Reads as a subtle sewing-button detail at 36px+, collapses back to the mountain silhouette at 18px favicon.</p>
+        <div class="spotlight"><div class="chip chip-copper chip-144"><svg viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z M17 29 A2 2 0 1 0 21 29 A2 2 0 1 0 17 29 Z M23 35 A2 2 0 1 0 27 35 A2 2 0 1 0 23 35 Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" d="m16 6 8 16 10-10 4 30H4L16 6z"/><circle cx="22" cy="32" r="8" fill="none" stroke="#000" stroke-opacity="0.22" stroke-width="1"/><circle cx="22" cy="32" r="6.5" fill="none" stroke="#000" stroke-opacity="0.10" stroke-width="0.5"/></svg></div></div>
+        <div class="treatments"><div class="treatment"><span class="treatment-label">Copper</span><div class="size-row"><div class="size-cell"><div class="chip chip-copper chip-18"><svg viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z M17 29 A2 2 0 1 0 21 29 A2 2 0 1 0 17 29 Z M23 35 A2 2 0 1 0 27 35 A2 2 0 1 0 23 35 Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" d="m16 6 8 16 10-10 4 30H4L16 6z"/><circle cx="22" cy="32" r="8" fill="none" stroke="#000" stroke-opacity="0.22" stroke-width="1"/><circle cx="22" cy="32" r="6.5" fill="none" stroke="#000" stroke-opacity="0.10" stroke-width="0.5"/></svg></div><span class="size-px">18</span></div><div class="size-cell"><div class="chip chip-copper chip-36"><svg viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z M17 29 A2 2 0 1 0 21 29 A2 2 0 1 0 17 29 Z M23 35 A2 2 0 1 0 27 35 A2 2 0 1 0 23 35 Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" d="m16 6 8 16 10-10 4 30H4L16 6z"/><circle cx="22" cy="32" r="8" fill="none" stroke="#000" stroke-opacity="0.22" stroke-width="1"/><circle cx="22" cy="32" r="6.5" fill="none" stroke="#000" stroke-opacity="0.10" stroke-width="0.5"/></svg></div><span class="size-px">36</span></div><div class="size-cell"><div class="chip chip-copper chip-72"><svg viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z M17 29 A2 2 0 1 0 21 29 A2 2 0 1 0 17 29 Z M23 35 A2 2 0 1 0 27 35 A2 2 0 1 0 23 35 Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" d="m16 6 8 16 10-10 4 30H4L16 6z"/><circle cx="22" cy="32" r="8" fill="none" stroke="#000" stroke-opacity="0.22" stroke-width="1"/><circle cx="22" cy="32" r="6.5" fill="none" stroke="#000" stroke-opacity="0.10" stroke-width="0.5"/></svg></div><span class="size-px">72</span></div></div></div><div class="treatment"><span class="treatment-label">Dark / outline</span><div class="size-row"><div class="size-cell"><div class="chip chip-dark chip-18"><svg viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z M17 29 A2 2 0 1 0 21 29 A2 2 0 1 0 17 29 Z M23 35 A2 2 0 1 0 27 35 A2 2 0 1 0 23 35 Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" d="m16 6 8 16 10-10 4 30H4L16 6z"/><circle cx="22" cy="32" r="8" fill="none" stroke="#000" stroke-opacity="0.22" stroke-width="1"/><circle cx="22" cy="32" r="6.5" fill="none" stroke="#000" stroke-opacity="0.10" stroke-width="0.5"/></svg></div><span class="size-px">18</span></div><div class="size-cell"><div class="chip chip-dark chip-36"><svg viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z M17 29 A2 2 0 1 0 21 29 A2 2 0 1 0 17 29 Z M23 35 A2 2 0 1 0 27 35 A2 2 0 1 0 23 35 Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" d="m16 6 8 16 10-10 4 30H4L16 6z"/><circle cx="22" cy="32" r="8" fill="none" stroke="#000" stroke-opacity="0.22" stroke-width="1"/><circle cx="22" cy="32" r="6.5" fill="none" stroke="#000" stroke-opacity="0.10" stroke-width="0.5"/></svg></div><span class="size-px">36</span></div><div class="size-cell"><div class="chip chip-dark chip-72"><svg viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z M17 29 A2 2 0 1 0 21 29 A2 2 0 1 0 17 29 Z M23 35 A2 2 0 1 0 27 35 A2 2 0 1 0 23 35 Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" d="m16 6 8 16 10-10 4 30H4L16 6z"/><circle cx="22" cy="32" r="8" fill="none" stroke="#000" stroke-opacity="0.22" stroke-width="1"/><circle cx="22" cy="32" r="6.5" fill="none" stroke="#000" stroke-opacity="0.10" stroke-width="0.5"/></svg></div><span class="size-px">72</span></div></div></div><div class="treatment"><span class="treatment-label">Granite</span><div class="size-row"><div class="size-cell"><div class="chip chip-granite chip-18"><svg viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z M17 29 A2 2 0 1 0 21 29 A2 2 0 1 0 17 29 Z M23 35 A2 2 0 1 0 27 35 A2 2 0 1 0 23 35 Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" d="m16 6 8 16 10-10 4 30H4L16 6z"/><circle cx="22" cy="32" r="8" fill="none" stroke="#000" stroke-opacity="0.22" stroke-width="1"/><circle cx="22" cy="32" r="6.5" fill="none" stroke="#000" stroke-opacity="0.10" stroke-width="0.5"/></svg></div><span class="size-px">18</span></div><div class="size-cell"><div class="chip chip-granite chip-36"><svg viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z M17 29 A2 2 0 1 0 21 29 A2 2 0 1 0 17 29 Z M23 35 A2 2 0 1 0 27 35 A2 2 0 1 0 23 35 Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" d="m16 6 8 16 10-10 4 30H4L16 6z"/><circle cx="22" cy="32" r="8" fill="none" stroke="#000" stroke-opacity="0.22" stroke-width="1"/><circle cx="22" cy="32" r="6.5" fill="none" stroke="#000" stroke-opacity="0.10" stroke-width="0.5"/></svg></div><span class="size-px">36</span></div><div class="size-cell"><div class="chip chip-granite chip-72"><svg viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z M17 29 A2 2 0 1 0 21 29 A2 2 0 1 0 17 29 Z M23 35 A2 2 0 1 0 27 35 A2 2 0 1 0 23 35 Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" d="m16 6 8 16 10-10 4 30H4L16 6z"/><circle cx="22" cy="32" r="8" fill="none" stroke="#000" stroke-opacity="0.22" stroke-width="1"/><circle cx="22" cy="32" r="6.5" fill="none" stroke="#000" stroke-opacity="0.10" stroke-width="0.5"/></svg></div><span class="size-px">72</span></div></div></div></div>
+        <details class="source-toggle">
+          <summary>SVG source</summary>
+          <pre class="source"><code>&lt;svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"&gt;
+  &lt;!-- Filled mountain with two diagonal button-holes --&gt;
+  &lt;path fill="currentColor" fill-rule="evenodd"
+        d="M16 6 L24 22 L34 12 L38 42 L4 42 Z
+           M17 29 A2 2 0 1 0 21 29 A2 2 0 1 0 17 29 Z
+           M23 35 A2 2 0 1 0 27 35 A2 2 0 1 0 23 35 Z"/&gt;
+  &lt;!-- Rounded outer peaks --&gt;
+  &lt;path fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linejoin="round" stroke-linecap="round"
+        d="m16 6 8 16 10-10 4 30H4L16 6z"/&gt;
+  &lt;!-- Double-ring button bezel --&gt;
+  &lt;circle cx="22" cy="32" r="8"   fill="none" stroke="#000" stroke-opacity="0.22" stroke-width="1"/&gt;
+  &lt;circle cx="22" cy="32" r="6.5" fill="none" stroke="#000" stroke-opacity="0.10" stroke-width="0.5"/&gt;
+&lt;/svg&gt;</code></pre>
+        </details>
+      </div>
+    </div>
+
+    <div class="section-divider"><span>Wordmark lockups</span></div>
+    <div class="lockup-grid">
+      <div class="lockup-row">
+        <span class="lockup-id">Original</span>
+        <div class="lockup lockup-dark">
+          <div class="chip chip-copper chip-36"><svg viewBox="0 0 48 48"><path fill="currentColor" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z"/></svg></div>
+          <span class="wordmark">Button Rock <span class="labs">Labs</span></span>
+        </div>
+        <div class="lockup lockup-light">
+          <div class="chip chip-copper chip-36"><svg viewBox="0 0 48 48"><path fill="currentColor" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z"/></svg></div>
+          <span class="wordmark">Button Rock <span class="labs">Labs</span></span>
+        </div>
+      </div>
+      <div class="lockup-row">
+        <span class="lockup-id">D2 · New</span>
+        <div class="lockup lockup-dark">
+          <div class="chip chip-copper chip-36"><svg viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z M17 29 A2 2 0 1 0 21 29 A2 2 0 1 0 17 29 Z M23 35 A2 2 0 1 0 27 35 A2 2 0 1 0 23 35 Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" d="m16 6 8 16 10-10 4 30H4L16 6z"/><circle cx="22" cy="32" r="8" fill="none" stroke="#000" stroke-opacity="0.22" stroke-width="1"/><circle cx="22" cy="32" r="6.5" fill="none" stroke="#000" stroke-opacity="0.10" stroke-width="0.5"/></svg></div>
+          <span class="wordmark">Button Rock <span class="labs">Labs</span></span>
+        </div>
+        <div class="lockup lockup-light">
+          <div class="chip chip-copper chip-36"><svg viewBox="0 0 48 48"><path fill="currentColor" fill-rule="evenodd" d="M16 6 L24 22 L34 12 L38 42 L4 42 Z M17 29 A2 2 0 1 0 21 29 A2 2 0 1 0 17 29 Z M23 35 A2 2 0 1 0 27 35 A2 2 0 1 0 23 35 Z"/><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" d="m16 6 8 16 10-10 4 30H4L16 6z"/><circle cx="22" cy="32" r="8" fill="none" stroke="#000" stroke-opacity="0.22" stroke-width="1"/><circle cx="22" cy="32" r="6.5" fill="none" stroke="#000" stroke-opacity="0.10" stroke-width="0.5"/></svg></div>
+          <span class="wordmark">Button Rock <span class="labs">Labs</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
