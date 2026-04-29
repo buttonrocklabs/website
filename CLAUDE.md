@@ -17,31 +17,59 @@ Button Rock Labs (BRL) is a community app development studio based in Lyons, Col
 
 ## This Project — BRL Marketing Website
 
-**What:** Single-page static marketing website for buttonrocklabs.com
-**Stack:** Vite + React 19 + TypeScript + Tailwind CSS v4 + Framer Motion
-**Entry:** src/main.tsx → src/App.tsx → src/pages/Home.tsx (single page)
-**Styles:** src/index.css (Tailwind v4 imports, CSS custom properties via @theme)
+**What:** Multi-page marketing website for buttonrocklabs.com — single-page hero on `/`, plus standalone routes for blog, privacy, and terms.
+**Stack:** Vite + React 19 + TypeScript + Tailwind CSS v4 + Framer Motion + react-router-dom v7
+**Routing:** **BrowserRouter** (clean URLs, NOT hash routing). Routes live in `src/App.tsx`:
+- `/` → `Home`
+- `/privacy` → `Privacy`
+- `/terms` → `Terms`
+- `/blog` → `BlogIndex`
+- `/blog/:slug` → `BlogPost`
+
+SPA fallback is provided by `public/_redirects` (`/* /index.html 200`) so direct loads of `/blog/foo` don't 404 on Cloudflare Pages.
+
+**Entry:** `src/main.tsx` → `src/App.tsx` → routed pages in `src/pages/`
+**Styles:** `src/index.css` (Tailwind v4 imports, CSS custom properties via @theme, plus a hand-rolled `.prose-brl` class for blog post body typography)
 **Fonts:** Google Fonts loaded in index.html (Inter — weights 400, 500, 600)
 **Hosting:** Cloudflare Pages, auto-deployed on push to `main` of `github.com/buttonrocklabs/website`
 **Build:** `npm run dev` (dev server, port 5000), `npm run build` (static output to /dist)
-**Config:** vite.config.ts (React plugin, Tailwind plugin, path aliases)
+**Config:** `vite.config.ts` (React plugin, Tailwind plugin, path alias `@` → `src`)
 
 ### File Structure
-/workspace
-├── index.html           — shell with <div id="root">, Google Fonts link
+```
+BRL_web/
+├── index.html                    — shell, schema.org Organization JSON-LD, favicon link, Google Fonts
+├── public/
+│   ├── _redirects                — Cloudflare Pages SPA catch-all (/* /index.html 200)
+│   ├── favicon.svg               — canonical Button-Rock mark, copper bg
+│   ├── brl-logo-final.html       — brand reference (D2 scheme)
+│   └── logo-lab.html             — logo lab reference
 ├── src/
-│   ├── main.tsx          — React DOM entry
-│   ├── App.tsx            — wraps <Home />
-│   ├── pages/Home.tsx     — entire site (NavBar, Hero, sections, footer)
-│   ├── index.css          — Tailwind v4 + CSS custom properties
-│   └── lib/utils.ts       — if present
-├── dist/                  — build output (Cloudflare Pages output dir)
-├── public/                 — static assets copied as-is (includes _redirects SPA fallback)
-├── vite.config.ts         — do not modify
-├── tailwind.config.ts     — if present, do not modify without instruction
+│   ├── main.tsx                  — React DOM entry
+│   ├── App.tsx                   — BrowserRouter, route table
+│   ├── index.css                 — Tailwind v4 + tokens + .prose-brl
+│   ├── assets/
+│   │   └── images/               — hero-bg, project-sober (latest mockup)
+│   ├── components/
+│   │   ├── BrandMark.tsx         — canonical SVG mark (bezel | plain | knockout variants)
+│   │   └── LabSection.tsx        — 15-tool grid folded into the "What We Do" section
+│   ├── content/
+│   │   └── blog/
+│   │       └── *.md              — blog posts (frontmatter + markdown body)
+│   ├── lib/
+│   │   └── posts.ts              — markdown loader (frontmatter parser + marked)
+│   └── pages/
+│       ├── Home.tsx              — main marketing page (NavBar inline, Hero, Philosophy, Services+Lab, Products, Support, ContactCTA)
+│       ├── Privacy.tsx
+│       ├── Terms.tsx
+│       ├── BlogIndex.tsx         — /blog list + BlogNav + BlogFooter (exported, reused by BlogPost)
+│       └── BlogPost.tsx          — /blog/:slug detail
+├── dist/                         — build output (Cloudflare Pages output dir)
+├── vite.config.ts                — DO NOT modify
 ├── tsconfig.json
 ├── package.json
 └── CLAUDE.md
+```
 
 ## Brand Design System
 
@@ -98,16 +126,49 @@ Light mode:
 - Section alternation: --color-bg and --color-surface backgrounds
 - No gradients, no shadows, no glow effects. Flat and clean.
 
-## Page Structure
-Header — logo + nav (About, Services, Portfolio, Contact) + theme toggle
-Hero — eyebrow "LYONS, COLORADO" + h1 + subtitle + 2 CTAs
-About — company story, founder, mission
-Services — what we build, how we work
-Portfolio — Sober Motivation showcase (primary), future projects
-Contact — get in touch
-Footer — copyright + location
+## Page Structure (`/` — Home)
+
+| Section | id | Content |
+|---|---|---|
+| NavBar | — | Logo (BrandMark in copper chip) + nav (About / What We Do / Portfolio / Support / Blog / Contact). NavBar is **inline** in `Home.tsx`; it isn't extracted to a shared component. Blog page has its own minimal `BlogNav` (logo + ← Home). |
+| Hero | — | Random headline from `HERO_HEADLINES`, eyebrow "Colorado Front Range", two CTAs. |
+| Philosophy | `#about` | "Built by a founder who ships" + 3 feature cards (One of One / Human First / Built to Last). |
+| Services + Lab | `#services` | "What We Do" prose intro + folded-in `<LabSection />` (15-tool grid in process order, sourced from `brl-lab/public/app.js`). |
+| Products | `#portfolio` | Sober Motivation card (only product on the public site). |
+| Support | `#support` | "Need help with your app or design?" — email button. |
+| ContactCTA | `#contact` | "Ready to build something human?" + IP-narrative copy + Get in Touch button + founder block (LinkedIn icon, email, phone, address) + Privacy/Terms links + footer signature with `<BrandMark variant="knockout" />`. |
+
+**Other pages:** `/privacy`, `/terms`, `/blog`, `/blog/:slug` — standalone routes, reuse `BlogNav` / `BlogFooter` from `BlogIndex.tsx`.
 
 ## Working Methodology
+
+### Session Start Protocol — DO THIS FIRST EVERY SESSION
+
+This site has shipped through several PRs. Local state can drift from origin between sessions. Before any work:
+
+1. **Sync with origin.** `git fetch origin && git status -sb` — see if local `main` is behind.
+2. **If behind, pull.** `git checkout main && git pull origin main`. Never start work on a stale local `main`.
+3. **Read what's actually live.** The code on `origin/main` is the source of truth — not this CLAUDE.md, not your assumptions. If they disagree, the code wins.
+4. **Confirm the routing model.** This site uses **BrowserRouter** (react-router-dom) with clean URLs. NOT hash routing. Anchors like `#about` only work *within* the Home page; route navigation uses `<Link to="/...">`.
+5. **Check unmerged branches.** `git branch -a | grep -v main` — there may be open Claude branches with related in-progress work.
+6. **Confirm the Cloudflare project name.** It's `website` (domains: buttonrocklabs.com, www.buttonrocklabs.com). Verify with `npx wrangler pages project list` if uncertain.
+
+### Pull Request Workflow — REQUIRED
+
+**Never push directly to `main`.** Production deploys are triggered by merges into `main`. The team flow:
+
+1. **Feature branch.** `git checkout -b claude/<short-name>` from up-to-date `main`.
+2. **Commit on the branch.** Stage files explicitly (`git add <path>`), not `git add -A` (avoids accidental .env / large binaries).
+3. **Push the branch.** `git push -u origin claude/<short-name>` — Cloudflare Pages auto-creates a preview deploy at `<hash>.website-bd7.pages.dev`.
+4. **Open a PR.** `gh pr create --base main --title "..." --body "..."` — include the preview URL in the body.
+5. **Greg reviews the preview, merges via GitHub UI.** Cloudflare Pages rebuilds from `main` and deploys to buttonrocklabs.com (~1–2 min).
+
+**If you've already committed on local `main`, recover before pushing:**
+```bash
+git branch save-my-work main          # safety
+git reset --hard origin/main          # match origin
+git checkout -b claude/<short-name> save-my-work   # move your work to a branch
+```
 
 ### Prompt Structure
 All prompts follow: GOAL → USER STORY → ACCEPTANCE CRITERIA → CONSTRAINTS → OUTPUT FORMAT → STOP RULE
