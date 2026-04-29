@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
+import BrandMark from "@/components/BrandMark";
+import LabSection from "@/components/LabSection";
 
 /** Hero headlines — one is randomly selected on each page load */
 const HERO_HEADLINES = [
@@ -34,10 +36,8 @@ function NavBar() {
     >
       <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
         <a href="#" className="flex items-center gap-2.5 group" data-testid="link-home">
-          <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center transition-transform group-hover:scale-105">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="m8 3 4 8 5-5 2 15H2L8 3z"/>
-            </svg>
+          <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center transition-transform group-hover:scale-105 text-white">
+            <BrandMark size={22} variant="bezel" />
           </div>
           <span className="text-lg tracking-tight text-foreground" style={{ fontFamily: "var(--font-display)" }}>
             <span className="font-bold">Button Rock</span>{" "}
@@ -62,6 +62,13 @@ function NavBar() {
               {link.label}
             </a>
           ))}
+          <Link
+            to="/blog"
+            data-testid="link-blog"
+            className="text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-widest"
+          >
+            Blog
+          </Link>
         </nav>
 
         <button
@@ -108,6 +115,13 @@ function NavBar() {
                 {link.label}
               </a>
             ))}
+            <Link
+              to="/blog"
+              onClick={() => setMobileOpen(false)}
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors uppercase tracking-widest py-2"
+            >
+              Blog
+            </Link>
           </nav>
         </motion.div>
       )}
@@ -201,7 +215,7 @@ const features = [
         <polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>
       </svg>
     ),
-    title: "Original IP",
+    title: "One of One",
     desc: "We build unique apps from scratch — not white-label clones.",
   },
   {
@@ -272,29 +286,33 @@ function Philosophy() {
 function Services() {
   return (
     <section id="services" className="py-28">
-      <div className="max-w-3xl mx-auto px-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-        >
-          <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-4">Our Approach</p>
-          <h2 className="text-3xl md:text-4xl font-bold mb-8" style={{ fontFamily: "var(--font-display)" }}>
-            What We Do
-          </h2>
-          <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
-            <p>
-              Button Rock Labs is a product studio. We build and ship our own apps in healthcare, wellness, behavioral health, and lifestyle — categories where real user behavior is the only thing that matters.
-            </p>
-            <p>
-              Every product starts from a real community and gets tailored to that audience. We move with a bias toward action, test against actual users early, and build for the person on the other end of the screen — not the spec sheet.
-            </p>
-            <p>
-              Our team has spent three decades shipping products in regulated markets, including telecom, healthcare technology, and fintech. That background shapes how we approach trust, privacy, and the long arc of what it takes to get a product into someone's daily life.
-            </p>
-          </div>
-        </motion.div>
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-4">Our Approach</p>
+            <h2 className="text-3xl md:text-4xl font-bold mb-8" style={{ fontFamily: "var(--font-display)" }}>
+              What We Do
+            </h2>
+            <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
+              <p>
+                Button Rock Labs is a product studio. We build and ship our own apps in healthcare, wellness, behavioral health, and lifestyle — categories where real user behavior is the only thing that matters.
+              </p>
+              <p>
+                Every product starts from a real community and gets tailored to that audience. We move with a bias toward action, test against actual users early, and build for the person on the other end of the screen — not the spec sheet.
+              </p>
+              <p>
+                Our team has spent three decades shipping products in regulated markets, including telecom, healthcare technology, and fintech. That background shapes how we approach trust, privacy, and the long arc of what it takes to get a product into someone's daily life.
+              </p>
+            </div>
+          </motion.div>
+        </div>
+
+        <LabSection />
       </div>
     </section>
   );
@@ -310,7 +328,7 @@ function Products() {
             What we've built
           </h2>
           <p className="text-muted-foreground text-lg">
-            Real platforms, live users, shipped to the App Store. Every product starts from our community engine and gets tailored to its audience.
+            A real platform with live users, shipped directly to you. Every BRL app starts from our shared engine and gets tailored to the humans it's built for.
           </p>
         </div>
 
@@ -411,7 +429,9 @@ function ContactCTA() {
             Ready to build something human?
           </h2>
           <p className="text-background/70 text-lg mb-10 leading-relaxed">
-            Reach out directly — we'd love to hear what you're working on.
+            We make things, then we share them — through partnerships, licenses, or clean
+            transfers — with the people who'll do something good with them. If that's a
+            conversation you want to have, we're here for it.
           </p>
           <a
             href="mailto:greg@buttonrocklabs.com"
@@ -460,9 +480,7 @@ function ContactCTA() {
 
         <div className="mt-20 pt-8 border-t border-background/15 flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-2.5">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--primary))" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="m8 3 4 8 5-5 2 15H2L8 3z"/>
-            </svg>
+            <BrandMark size={22} variant="knockout" className="text-primary" />
             <span className="text-sm" style={{ fontFamily: "var(--font-display)" }}>
               <span className="font-bold">Button Rock</span>{" "}
               <span className="font-semibold" style={{ color: "hsl(var(--primary))" }}>Labs</span>
