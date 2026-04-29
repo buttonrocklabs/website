@@ -1,5 +1,51 @@
 # CLAUDE.md — Button Rock Labs Website
 
+> **Read [Operating Protocol](#operating-protocol) before any work.**
+> This site auto-deploys to production on every push to `main`. Skipping the
+> protocol has caused incidents (stale local main, direct-to-main commits, doc
+> drift). The protocol exists because the cost of getting it wrong is users
+> seeing wrong.
+
+## Operating Protocol
+
+### Session Start — do this first every session
+
+Local state drifts from origin between sessions. Before any work:
+
+1. **Sync with origin.** `git fetch origin && git status -sb` — see if local `main` is behind.
+2. **If behind, pull.** `git checkout main && git pull origin main`. Never start work on a stale local `main`.
+3. **Read what's actually live.** The code on `origin/main` is the source of truth — not this doc, not your assumptions. If they disagree, the code wins.
+4. **Confirm the routing model.** This site uses **BrowserRouter** (react-router-dom) with clean URLs. NOT hash routing. Anchors like `#about` only work *within* the Home page; route navigation uses `<Link to="/...">`.
+5. **Check unmerged branches.** `git branch -a | grep -v main` — there may be open Claude branches with related in-progress work.
+6. **Confirm the Cloudflare project name.** It's `website` (domains: buttonrocklabs.com, www.buttonrocklabs.com). Verify with `npx wrangler pages project list` if uncertain.
+
+### Pull Request Workflow — required
+
+**Never push directly to `main`.** Production deploys are triggered by merges into `main`. A local `pre-push` git hook at `.git/hooks/pre-push` enforces this — direct pushes to `main` are rejected with a recovery hint. Override only via `BRL_ALLOW_MAIN_PUSH=1 git push ...` in genuine emergencies.
+
+The team flow:
+
+1. **Feature branch.** `git checkout -b claude/<short-name>` from up-to-date `main`.
+2. **Commit on the branch.** Stage files explicitly (`git add <path>`), not `git add -A` (avoids accidental .env / large binaries / IDE state).
+3. **Push the branch.** `git push -u origin claude/<short-name>` — Cloudflare Pages auto-creates a preview deploy at `<hash>.website-bd7.pages.dev`.
+4. **Open a PR.** `gh pr create --base main --title "..." --body "..."` — include the preview URL in the body so reviewers can click through.
+5. **Greg reviews the preview, merges** via GitHub UI or `gh pr merge --squash --delete-branch`. Cloudflare Pages rebuilds from `main` and deploys to buttonrocklabs.com (~1–2 min).
+6. **After merge: sync local.** `git checkout main && git pull origin main`. Delete the local feature branch (`git branch -D claude/<short-name>`).
+
+**If you have local commits on main and `pre-push` blocks the push, recover them on a feature branch:**
+```bash
+git branch save-my-work main           # safety: keep the commits somewhere
+git reset --hard origin/main           # match origin's main
+git checkout -b claude/<short-name> save-my-work
+git branch -D save-my-work             # once your work is safely on the feature branch
+```
+
+### Future hardening
+
+The local pre-push hook + this doc + the discipline of the person at the keyboard are what stand between us and a bad direct-to-main push. For server-side enforcement (the bulletproof version), add GitHub branch protection on `main` (require PR + 1 approval, disallow force-push, disallow direct push). That's a Greg-level admin action — the protocol above is what we have until then.
+
+---
+
 ## Company Identity
 
 Button Rock Labs (BRL) is a community app development studio based in Lyons, Colorado. Named after the Button Rock Reservoir/Dam trail — a local Lyons landmark. Founded by Greg Falconer, a fintech CEO turned app builder.
@@ -142,33 +188,7 @@ Light mode:
 
 ## Working Methodology
 
-### Session Start Protocol — DO THIS FIRST EVERY SESSION
-
-This site has shipped through several PRs. Local state can drift from origin between sessions. Before any work:
-
-1. **Sync with origin.** `git fetch origin && git status -sb` — see if local `main` is behind.
-2. **If behind, pull.** `git checkout main && git pull origin main`. Never start work on a stale local `main`.
-3. **Read what's actually live.** The code on `origin/main` is the source of truth — not this CLAUDE.md, not your assumptions. If they disagree, the code wins.
-4. **Confirm the routing model.** This site uses **BrowserRouter** (react-router-dom) with clean URLs. NOT hash routing. Anchors like `#about` only work *within* the Home page; route navigation uses `<Link to="/...">`.
-5. **Check unmerged branches.** `git branch -a | grep -v main` — there may be open Claude branches with related in-progress work.
-6. **Confirm the Cloudflare project name.** It's `website` (domains: buttonrocklabs.com, www.buttonrocklabs.com). Verify with `npx wrangler pages project list` if uncertain.
-
-### Pull Request Workflow — REQUIRED
-
-**Never push directly to `main`.** Production deploys are triggered by merges into `main`. The team flow:
-
-1. **Feature branch.** `git checkout -b claude/<short-name>` from up-to-date `main`.
-2. **Commit on the branch.** Stage files explicitly (`git add <path>`), not `git add -A` (avoids accidental .env / large binaries).
-3. **Push the branch.** `git push -u origin claude/<short-name>` — Cloudflare Pages auto-creates a preview deploy at `<hash>.website-bd7.pages.dev`.
-4. **Open a PR.** `gh pr create --base main --title "..." --body "..."` — include the preview URL in the body.
-5. **Greg reviews the preview, merges via GitHub UI.** Cloudflare Pages rebuilds from `main` and deploys to buttonrocklabs.com (~1–2 min).
-
-**If you've already committed on local `main`, recover before pushing:**
-```bash
-git branch save-my-work main          # safety
-git reset --hard origin/main          # match origin
-git checkout -b claude/<short-name> save-my-work   # move your work to a branch
-```
+> See [Operating Protocol](#operating-protocol) at the top of this file for Session Start and Pull Request Workflow — both are required reading.
 
 ### Prompt Structure
 All prompts follow: GOAL → USER STORY → ACCEPTANCE CRITERIA → CONSTRAINTS → OUTPUT FORMAT → STOP RULE
