@@ -69,6 +69,13 @@ function NavBar() {
           >
             Blog
           </Link>
+          <a
+            href="https://brl-client-tool-starter.pages.dev"
+            data-testid="link-client-portal"
+            className="text-[13px] font-semibold uppercase tracking-widest px-4 py-2 rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+          >
+            Client Portal
+          </a>
         </nav>
 
         <button
@@ -122,6 +129,13 @@ function NavBar() {
             >
               Blog
             </Link>
+            <a
+              href="https://brl-client-tool-starter.pages.dev"
+              onClick={() => setMobileOpen(false)}
+              className="text-sm font-semibold uppercase tracking-widest py-2.5 px-4 mt-2 rounded-md bg-primary text-primary-foreground text-center"
+            >
+              Client Portal
+            </a>
           </nav>
         </motion.div>
       )}
