@@ -1,0 +1,24 @@
+# LAB-76: gitleaks config for BRL_web (marketing site).
+
+title = "BRL_web — gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Known-OK strings that look like secrets but aren't."
+paths = [
+  '''node_modules/''',
+  '''dist/''',
+  '''\.git/''',
+  '''package-lock\.json$''',
+]
+regexes = [
+  '''pk_live_[A-Za-z0-9]+''',
+  '''pk_test_[A-Za-z0-9]+''',
+]
+stopwords = [
+  "example",
+  "placeholder",
+  "todo",
+]
