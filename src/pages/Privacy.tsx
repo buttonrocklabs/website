@@ -100,6 +100,44 @@ export default function Privacy() {
             </p>
           </Section>
 
+          <Section eyebrow="BRL Lab + tools" heading="Information we process when you use BRL apps">
+            <p>
+              In addition to the marketing site above, Button Rock Labs operates a small ecosystem of web tools for clients and partners — the Lab (<a href="https://lab.buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">lab.buttonrocklabs.com</a>) and per-app subdomains such as Vision Board (<a href="https://visionboard.buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">visionboard.buttonrocklabs.com</a>). When you sign in to one of these tools, we process the following:
+            </p>
+            <p>
+              <strong className="text-foreground">Identity.</strong> Your email, name, and (if you sign in via Google) your Google profile information, supplied through our authentication provider Clerk. We do not store passwords ourselves.
+            </p>
+            <p>
+              <strong className="text-foreground">Application data.</strong> The minimum needed to run the tool you're using — for Vision Board this means Google Sheet IDs, sheet metadata, and image references. We never read or store the contents of your Sheet beyond what's required to render it back to you.
+            </p>
+            <p>
+              <strong className="text-foreground">Uploaded files.</strong> Images you upload through Vision Board (or similar tools) are stored on Cloudflare R2 under a per-user prefix and served back to you through Cloudflare's CDN. Existing Vision Board images that were originally uploaded to your Google Drive remain in your Drive — we don't move them on your behalf.
+            </p>
+            <p>
+              <strong className="text-foreground">Operational logs.</strong> Standard request and error logs are kept for short-term debugging and security purposes. We don't run analytics, tracking pixels, or advertising tooling on these tools.
+            </p>
+          </Section>
+
+          <Section heading="Sub-processors">
+            <p>
+              For the Lab and connected app tools we rely on a small number of trusted infrastructure providers:
+            </p>
+            <ul className="list-disc pl-5 space-y-2">
+              <li><strong className="text-foreground">Clerk</strong> — authentication, session management, and user records.</li>
+              <li><strong className="text-foreground">Cloudflare</strong> — application hosting (Pages + Workers), the D1 database, and R2 object storage for images.</li>
+              <li><strong className="text-foreground">Google</strong> — only when you explicitly authorize Google Sheets access for a tool like Vision Board. We request the narrowest scope needed (read/write to Sheets you authorize); we no longer request Drive scopes.</li>
+            </ul>
+          </Section>
+
+          <Section heading="Retention &amp; your data rights">
+            <p>
+              Identity and application records (in our database) persist until you ask us to delete your account. Images stored in R2 persist until the corresponding sheet entry is removed.
+            </p>
+            <p>
+              You can request export or deletion of your data at any time by emailing <a href="mailto:greg@buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">greg@buttonrocklabs.com</a>. We'll confirm and complete the request within a reasonable window.
+            </p>
+          </Section>
+
           <Section heading="Contact us">
             <p>
               Privacy questions or requests related to this site or our engagements:
