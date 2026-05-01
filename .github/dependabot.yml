@@ -15,6 +15,17 @@ updates:
       patches:
         update-types:
           - patch
+      # LAB-118: vite + its plugins must upgrade together — plugin-react N
+      # declares vite ^N as a peer, so split majors fail to install. Group
+      # them so the next major bump arrives as a single PR.
+      vite-toolchain:
+        patterns:
+          - "vite"
+          - "@vitejs/*"
+          - "@tailwindcss/vite"
+        update-types:
+          - minor
+          - major
   - package-ecosystem: github-actions
     directory: /
     schedule:
