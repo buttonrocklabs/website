@@ -70,11 +70,11 @@ function NavBar() {
             Blog
           </Link>
           <a
-            href="https://brl-client-tool-starter.pages.dev"
-            data-testid="link-client-portal"
+            href="https://lab.buttonrocklabs.com"
+            data-testid="link-enter-the-lab"
             className="text-[13px] font-semibold uppercase tracking-widest px-4 py-2 rounded-md bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
           >
-            Client Portal
+            Enter the Lab
           </a>
         </nav>
 
@@ -130,11 +130,11 @@ function NavBar() {
               Blog
             </Link>
             <a
-              href="https://brl-client-tool-starter.pages.dev"
+              href="https://lab.buttonrocklabs.com"
               onClick={() => setMobileOpen(false)}
               className="text-sm font-semibold uppercase tracking-widest py-2.5 px-4 mt-2 rounded-md bg-primary text-primary-foreground text-center"
             >
-              Client Portal
+              Enter the Lab
             </a>
           </nav>
         </motion.div>
