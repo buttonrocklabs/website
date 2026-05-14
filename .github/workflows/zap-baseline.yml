@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - name: ZAP Baseline Scan
-        uses: zaproxy/action-baseline@v0.14.0
+        uses: zaproxy/action-baseline@v0.15.0
         with:
           target: ${{ inputs.target }}
           # Allow the job to "fail" with findings without failing the
