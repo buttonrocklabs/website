@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 
-/* The Lab — the 15-tool grid that renders inside the "What We Do" section
+/* The Lab: the 15-tool grid that renders inside the "What We Do" section
    on Home.tsx (folded in below the prose intro). Self-contained block:
    sub-heading + grid + closing line. No outer <section> wrapper so it
    inherits container width from its parent. */
@@ -40,7 +40,7 @@ const TOOLS: Tool[] = [
   {
     name: "Compass",
     kind: "Audience",
-    tagline: "Map the audience — personas and the communities where they actually gather.",
+    tagline: "Map the audience: personas and the communities where they actually gather.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <circle cx="12" cy="12" r="10" />
@@ -51,7 +51,7 @@ const TOOLS: Tool[] = [
   {
     name: "Campfire",
     kind: "Design",
-    tagline: "Community spec — channels, rituals, rewards, moderation.",
+    tagline: "Community spec: channels, rituals, rewards, moderation.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M8.5 14.5A2.5 2.5 0 0 0 11 17a3 3 0 0 0 3-3c0-1.66-.5-3-2.5-5.5C8 4.92 6 9.5 6 11.5a6 6 0 0 0 12 0c0-2.5-2.5-5-5-7-1 -.83-1.5-2.5-1-4.5" />
@@ -61,7 +61,7 @@ const TOOLS: Tool[] = [
   {
     name: "Forge",
     kind: "Build",
-    tagline: "Projects in flight — backlogs, sessions, benchmarks. Every prompt tracked.",
+    tagline: "Projects in flight: backlogs, sessions, benchmarks. Every prompt tracked.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="m15 12-8.5 8.5a2.12 2.12 0 1 1-3-3L12 9" />
@@ -98,7 +98,7 @@ const TOOLS: Tool[] = [
   {
     name: "Stoke",
     kind: "Energy",
-    tagline: "AI usage at a glance — session and weekly capacity. Know when to push or rest.",
+    tagline: "AI usage at a glance: session and weekly capacity. Know when to push or rest.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
@@ -119,7 +119,7 @@ const TOOLS: Tool[] = [
   {
     name: "Bedrock",
     kind: "Defense",
-    tagline: "Solid foundations — vulnerable deps, leaked secrets, exposed PII.",
+    tagline: "Solid foundations: vulnerable deps, leaked secrets, exposed PII.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -130,7 +130,7 @@ const TOOLS: Tool[] = [
   {
     name: "Sentinel",
     kind: "Health",
-    tagline: "Deploy health across every shipped project — uptime, SSL, bundle drift.",
+    tagline: "Deploy health across every shipped project: uptime, SSL, bundle drift.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" />
@@ -141,7 +141,7 @@ const TOOLS: Tool[] = [
   {
     name: "Pulse",
     kind: "Metrics",
-    tagline: "Community vitals — DAU, retention, streaks, events. Across every app.",
+    tagline: "Community vitals: DAU, retention, streaks, events. Across every app.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
@@ -151,7 +151,7 @@ const TOOLS: Tool[] = [
   {
     name: "Echo",
     kind: "Listen",
-    tagline: "Unified feedback inbox — App Store, email, in-app, chat — one stream.",
+    tagline: "Unified feedback inbox: App Store, email, in-app, and chat in one stream.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />

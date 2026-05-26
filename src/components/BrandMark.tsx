@@ -8,11 +8,11 @@ import type { CSSProperties } from "react";
               The hero treatment. Use inside a copper / dark / granite chip.
    - plain    Filled silhouette only. For small inline marks (footers, ≤24px)
               and light-bg chips where the bezel detail noises up.
-   - knockout Outline only — stroked mountain + stroked button-holes, no fill.
+   - knockout Outline only: stroked mountain plus stroked button-holes, no fill.
               Lives well on light backgrounds and in delicate UI moments
               where a filled mark feels heavy.
 
-   All strokes use currentColor — set text color on the parent to theme it.
+   All strokes use currentColor; set text color on the parent to theme it.
    Bezel rings are #000 at low opacity (the embossed effect on copper);
    they're omitted from plain and knockout. */
 

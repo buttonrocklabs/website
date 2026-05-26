@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import BrandMark from "@/components/BrandMark";
 import LabSection from "@/components/LabSection";
 
-/** Hero headlines — one is randomly selected on each page load */
+/** Hero headlines, randomly selected on each page load */
 const HERO_HEADLINES = [
   "Where community meets code.",
   "We build apps that bring people together.",
@@ -230,7 +230,7 @@ const features = [
       </svg>
     ),
     title: "One of One",
-    desc: "We build unique apps from scratch — not white-label clones.",
+    desc: "We build unique apps from scratch, not white-label clones.",
   },
   {
     icon: (
@@ -268,7 +268,7 @@ function Philosophy() {
               Built by a founder who ships
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Greg is the founder of Button Rock Labs. He's spent three decades shipping products across telecom, healthcare tech, and fintech — most recently seven years as CEO of iVitaFi, a patient financing platform reaching 400+ healthcare locations nationwide. He builds for real people, not spec sheets, and his best teams have always moved with a bias toward action.
+              Greg is the founder of Button Rock Labs. He's spent three decades shipping products across telecom, healthcare tech, and fintech, most recently seven years as CEO of iVitaFi, a patient financing platform reaching 400+ healthcare locations nationwide. He builds for real people, not spec sheets, and his best teams have always moved with a bias toward action.
             </p>
           </motion.div>
 
@@ -314,10 +314,10 @@ function Services() {
             </h2>
             <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
               <p>
-                Button Rock Labs is a product studio. We build and ship our own apps in healthcare, wellness, behavioral health, and lifestyle — categories where real user behavior is the only thing that matters.
+                Button Rock Labs is a product studio. We build and ship our own apps in healthcare, wellness, behavioral health, and lifestyle. These are categories where real user behavior is the only thing that matters.
               </p>
               <p>
-                Every product starts from a real community and gets tailored to that audience. We move with a bias toward action, test against actual users early, and build for the person on the other end of the screen — not the spec sheet.
+                Every product starts from a real community and gets tailored to that audience. We move with a bias toward action, test against actual users early, and build for the person on the other end of the screen, not the spec sheet.
               </p>
               <p>
                 Our team has spent three decades shipping products in regulated markets, including telecom, healthcare technology, and fintech. That background shapes how we approach trust, privacy, and the long arc of what it takes to get a product into someone's daily life.
@@ -443,8 +443,8 @@ function ContactCTA() {
             Ready to build something human?
           </h2>
           <p className="text-background/70 text-lg mb-10 leading-relaxed">
-            We make things, then we share them — through partnerships, licenses, or clean
-            transfers — with the people who'll do something good with them. If that's a
+            We make things, then we share them with the people who'll do something good
+            with them, through partnerships, licenses, or clean transfers. If that's a
             conversation you want to have, we're here for it.
           </p>
           <a

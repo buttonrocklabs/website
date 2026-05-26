@@ -1,5 +1,5 @@
 # LAB-76: HTTP security headers for buttonrocklabs.com (marketing).
-# Marketing site has no auth, no third-party widgets — tighter CSP.
+# Marketing site has no auth, no third-party widgets, so the CSP is tighter.
 
 /*
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload

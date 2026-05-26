@@ -63,7 +63,7 @@ export default function Privacy() {
 
           <Section heading="Our commitment">
             <p>
-              We are a custom app development studio. Any ideas, concepts, designs, business plans, or technical details you share with us — whether in an initial inquiry, a discovery call, or an active engagement — are held in confidence.
+              We are a custom app development studio. Any ideas, concepts, designs, business plans, or technical details you share with us, whether in an initial inquiry, a discovery call, or an active engagement, are held in confidence.
             </p>
             <p>
               We do not discuss, share, or reference client ideas or concepts outside of Button Rock Labs without your explicit permission and instruction. This applies before, during, and after any engagement.
@@ -72,7 +72,7 @@ export default function Privacy() {
 
           <Section heading="Information we collect on this site">
             <p>
-              This is a marketing website. We collect only what you voluntarily send us — typically an email to <a href="mailto:greg@buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">greg@buttonrocklabs.com</a> or <a href="mailto:info@buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">info@buttonrocklabs.com</a>.
+              This is a marketing website. We collect only what you voluntarily send us, typically an email to <a href="mailto:greg@buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">greg@buttonrocklabs.com</a> or <a href="mailto:info@buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">info@buttonrocklabs.com</a>.
             </p>
             <p>
               Standard server logs may record your IP address and basic request information for operational and security purposes. We do not use analytics, tracking pixels, or advertising cookies on this site.
@@ -87,7 +87,7 @@ export default function Privacy() {
 
           <Section heading="Client work confidentiality">
             <p>
-              When we work together, everything you share — ideas, designs, code, roadmaps, business discussions — stays confidential. We don't repurpose your work for other clients, and we don't showcase it publicly unless you've asked us to.
+              When we work together, everything you share, including ideas, designs, code, roadmaps, and business discussions, stays confidential. We don't repurpose your work for other clients, and we don't showcase it publicly unless you've asked us to.
             </p>
             <p>
               If you'd like us to feature a project in our portfolio, it happens only by written agreement and at the level of detail you approve.
@@ -102,16 +102,16 @@ export default function Privacy() {
 
           <Section eyebrow="BRL Lab + tools" heading="Information we process when you use BRL apps">
             <p>
-              In addition to the marketing site above, Button Rock Labs operates a small ecosystem of web tools for clients and partners — the Lab (<a href="https://lab.buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">lab.buttonrocklabs.com</a>) and per-app subdomains such as Vision Board (<a href="https://visionboard.buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">visionboard.buttonrocklabs.com</a>). When you sign in to one of these tools, we process the following:
+              In addition to the marketing site above, Button Rock Labs operates a small ecosystem of web tools for clients and partners: the Lab (<a href="https://lab.buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">lab.buttonrocklabs.com</a>) and per-app subdomains such as Vision Board (<a href="https://visionboard.buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">visionboard.buttonrocklabs.com</a>). When you sign in to one of these tools, we process the following:
             </p>
             <p>
               <strong className="text-foreground">Identity.</strong> Your email, name, and (if you sign in via Google) your Google profile information, supplied through our authentication provider Clerk. We do not store passwords ourselves.
             </p>
             <p>
-              <strong className="text-foreground">Application data.</strong> The minimum needed to run the tool you're using — for Vision Board this means Google Sheet IDs, sheet metadata, and image references. We never read or store the contents of your Sheet beyond what's required to render it back to you.
+              <strong className="text-foreground">Application data.</strong> The minimum needed to run the tool you're using. For Vision Board, this means Google Sheet IDs, sheet metadata, and image references. We never read or store the contents of your Sheet beyond what's required to render it back to you.
             </p>
             <p>
-              <strong className="text-foreground">Uploaded files.</strong> Images you upload through Vision Board (or similar tools) are stored on Cloudflare R2 under a per-user prefix and served back to you through Cloudflare's CDN. Existing Vision Board images that were originally uploaded to your Google Drive remain in your Drive — we don't move them on your behalf.
+              <strong className="text-foreground">Uploaded files.</strong> Images you upload through Vision Board (or similar tools) are stored on Cloudflare R2 under a per-user prefix and served back to you through Cloudflare's CDN. Existing Vision Board images that were originally uploaded to your Google Drive remain in your Drive, and we don't move them on your behalf.
             </p>
             <p>
               <strong className="text-foreground">Operational logs.</strong> Standard request and error logs are kept for short-term debugging and security purposes. We don't run analytics, tracking pixels, or advertising tooling on these tools.
@@ -123,9 +123,9 @@ export default function Privacy() {
               For the Lab and connected app tools we rely on a small number of trusted infrastructure providers:
             </p>
             <ul className="list-disc pl-5 space-y-2">
-              <li><strong className="text-foreground">Clerk</strong> — authentication, session management, and user records.</li>
-              <li><strong className="text-foreground">Cloudflare</strong> — application hosting (Pages + Workers), the D1 database, and R2 object storage for images.</li>
-              <li><strong className="text-foreground">Google</strong> — only when you explicitly authorize Google Sheets access for a tool like Vision Board. We request the narrowest scope needed (read/write to Sheets you authorize); we no longer request Drive scopes.</li>
+              <li><strong className="text-foreground">Clerk</strong>: authentication, session management, and user records.</li>
+              <li><strong className="text-foreground">Cloudflare</strong>: application hosting (Pages + Workers), the D1 database, and R2 object storage for images.</li>
+              <li><strong className="text-foreground">Google</strong>: only when you explicitly authorize Google Sheets access for a tool like Vision Board. We request the narrowest scope needed (read/write to Sheets you authorize); we no longer request Drive scopes.</li>
             </ul>
           </Section>
 

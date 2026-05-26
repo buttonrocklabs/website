@@ -100,7 +100,7 @@ export default function Terms() {
 
           <Section heading="4. Intellectual Property">
             <p>
-              All content on the Site — including text, graphics, logos, and software — is owned by Button Rock Labs or its licensors and is protected by copyright, trademark, and other intellectual property laws. You may not copy, modify, distribute, or create derivative works without our prior written consent.
+              All content on the Site, including text, graphics, logos, and software, is owned by Button Rock Labs or its licensors and is protected by copyright, trademark, and other intellectual property laws. You may not copy, modify, distribute, or create derivative works without our prior written consent.
             </p>
           </Section>
 
@@ -112,13 +112,13 @@ export default function Terms() {
 
           <Section heading="5a. The Lab and connected web tools">
             <p>
-              Button Rock Labs also operates a small set of web tools for clients and partners — the Lab at lab.buttonrocklabs.com and per-app subdomains such as visionboard.buttonrocklabs.com (collectively, the "Tools"). When you sign in to a Tool, the following also applies:
+              Button Rock Labs also operates a small set of web tools for clients and partners: the Lab at lab.buttonrocklabs.com and per-app subdomains such as visionboard.buttonrocklabs.com (collectively, the "Tools"). When you sign in to a Tool, the following also applies:
             </p>
             <p>
               <strong className="text-foreground">Service.</strong> The Tools provide workflow tooling for AEC and creative-industry clients. They are provided on a best-effort basis with no guaranteed uptime or warranty. We follow reasonable security practices but do not promise the service will be uninterrupted or error-free.
             </p>
             <p>
-              <strong className="text-foreground">Your responsibilities.</strong> You retain ownership of any data you bring to a Tool — including Google Sheets you connect, files you upload, and content you create. You are responsible for keeping your sign-in credentials secure, complying with the terms of any third-party service you authorize us to access on your behalf (e.g., Google's API Terms when you connect a Sheet), and ensuring you have the right to upload anything you upload.
+              <strong className="text-foreground">Your responsibilities.</strong> You retain ownership of any data you bring to a Tool, including Google Sheets you connect, files you upload, and content you create. You are responsible for keeping your sign-in credentials secure, complying with the terms of any third-party service you authorize us to access on your behalf (e.g., Google's API Terms when you connect a Sheet), and ensuring you have the right to upload anything you upload.
             </p>
             <p>
               <strong className="text-foreground">Termination &amp; data export.</strong> Either party may end your access at any time. If we end access on our side we'll give you reasonable notice and a chance to export your data. You can also request export or deletion of your data at any time by emailing <a href="mailto:greg@buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">greg@buttonrocklabs.com</a>.
