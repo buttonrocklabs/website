@@ -6,6 +6,7 @@
 @theme inline {
   --font-sans: "Inter", sans-serif;
   --font-display: "Inter", sans-serif;
+  --font-script: "Dancing Script", cursive;
 
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));

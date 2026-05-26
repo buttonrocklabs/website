@@ -90,7 +90,7 @@ export default function BlogIndex() {
   );
 }
 
-/* Minimal nav for blog pages — logo + back-to-home, no section anchors. */
+/* Minimal nav for blog pages: logo plus back-to-home, no section anchors. */
 export function BlogNav() {
   return (
     <header className="fixed top-0 w-full z-50 bg-background/85 backdrop-blur-xl border-b border-border/50 py-4">

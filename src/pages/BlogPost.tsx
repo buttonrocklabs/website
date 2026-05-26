@@ -26,7 +26,7 @@ export default function BlogPost() {
               Post not found.
             </h1>
             <p className="text-muted-foreground mb-8">
-              That post doesn't exist — or it might have moved.
+              That post doesn't exist, or it might have moved.
             </p>
             <Link
               to="/blog"
