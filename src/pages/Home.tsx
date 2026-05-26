@@ -171,7 +171,7 @@ function Hero() {
         >
           <span className="block">We bring people together.</span>
           <span className="block">We demonstrate <span className="text-primary" style={{ fontFamily: "var(--font-script)", fontWeight: 700, fontSize: "1.4em" }}>your</span> value.</span>
-          <span className="block">We build software that fits your business.</span>
+          <span className="block">We build software that fits <span className="text-primary" style={{ fontFamily: "var(--font-script)", fontWeight: 700, fontSize: "1.4em" }}>your</span> business.</span>
         </motion.h1>
 
         <motion.p
