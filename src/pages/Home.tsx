@@ -4,14 +4,6 @@ import { Link } from "react-router-dom";
 import BrandMark from "@/components/BrandMark";
 import LabSection from "@/components/LabSection";
 
-/** Hero headlines, randomly selected on each page load */
-const HERO_HEADLINES = [
-  "Where community meets code.",
-  "We build apps that bring people together.",
-  "Community platforms for what matters.",
-  "Your people. Your platform.",
-];
-
 import heroBg from "@/assets/images/hero-bg.png";
 import projectSober from "@/assets/images/project-sober.png";
 
@@ -152,11 +144,6 @@ function Hero() {
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-  // Pick a random headline once on mount
-  const [headline] = useState(
-    () => HERO_HEADLINES[Math.floor(Math.random() * HERO_HEADLINES.length)]
-  );
-
   return (
     <section ref={ref} className="relative min-h-screen flex items-center overflow-hidden">
       <motion.div className="absolute inset-0 z-0" style={{ y: bgY }}>
@@ -177,13 +164,15 @@ function Hero() {
         </motion.div>
 
         <motion.h1
-          className="text-[clamp(2rem,5vw,3.5rem)] leading-[1.08] max-w-3xl mb-8"
+          className="text-[clamp(2rem,5vw,3.5rem)] leading-[1.08] max-w-4xl mb-8"
           style={{ fontFamily: "var(--font-display)", fontWeight: 800 }}
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
         >
-          {headline}
+          <span className="block">We bring people together.</span>
+          <span className="block">We demonstrate <span className="text-primary" style={{ fontFamily: "var(--font-script)", fontWeight: 700, fontSize: "1.4em" }}>your</span> value.</span>
+          <span className="block">We build software that fits your business.</span>
         </motion.h1>
 
         <motion.p
@@ -192,8 +181,10 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          We design and ship native mobile platforms that turn shared interests
-          into real connection. Built on the Front Range, deployed everywhere.
+          We build community platforms, decision tools, and custom business
+          software. One principle runs through all of it: the value we create is
+          what earns its cost. Built on the Colorado Front Range, shipped wherever
+          the work lives.
         </motion.p>
 
         <motion.div
@@ -230,7 +221,7 @@ const features = [
       </svg>
     ),
     title: "One of One",
-    desc: "We build unique apps from scratch, not white-label clones.",
+    desc: "Every app is built from scratch and shaped around one business and the people it serves.",
   },
   {
     icon: (
@@ -268,7 +259,7 @@ function Philosophy() {
               Built by a founder who ships
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Greg is the founder of Button Rock Labs. He's spent three decades shipping products across telecom, healthcare tech, and fintech, most recently seven years as CEO of iVitaFi, a patient financing platform reaching 400+ healthcare locations nationwide. He builds for real people, not spec sheets, and his best teams have always moved with a bias toward action.
+              Button Rock Labs is not a fresh start. It is the culmination of a lifetime of curiosity, the place where three decades of building across telecom, healthcare technology, and fintech finally come together. Greg spent seven of those years as CEO of iVitaFi, a patient-financing platform reaching more than 400 healthcare locations, and kept circling the same conviction: a business earns its place when its customers carry its impact into the world. Everything learned along the way about shipping products, leading teams, and reading what people actually need is woven into how the studio works today.
             </p>
           </motion.div>
 
@@ -297,36 +288,97 @@ function Philosophy() {
   );
 }
 
+const useCases = [
+  {
+    title: "Bring people together",
+    body:
+      "We build native community platforms with the connective tissue already in place: real-time chat, live meetings, challenges, journaling, and coaching. For mission-driven companies whose customers are the ones who carry the impact forward.",
+    note: "Live: Sober Motivation, a recovery community on the App Store.",
+  },
+  {
+    title: <>Demonstrate <span className="text-primary" style={{ fontFamily: "var(--font-script)", fontWeight: 700, fontSize: "1.4em" }}>your</span> value</>,
+    body:
+      "We build interactive sales tools and decision-grade walkthroughs that let people feel complex value instead of reading about it. For B2B teams whose product is powerful but hard to grasp from a slide.",
+    note: "A live example is on the way.",
+  },
+  {
+    title: "Run your business your way",
+    body:
+      "We build AI-native custom software shaped around the way your business actually works, instead of bending your business to fit the tool. For operators who have outgrown spreadsheets and been let down by one-size-fits-all software. Development is no longer the bottleneck, and customization no longer requires a platform, so the software can change at the speed of your business.",
+    note: null,
+  },
+];
+
 function Services() {
   return (
     <section id="services" className="py-28">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="max-w-3xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6 }}
-          >
-            <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-4">Our Approach</p>
-            <h2 className="text-3xl md:text-4xl font-bold mb-8" style={{ fontFamily: "var(--font-display)" }}>
-              What We Do
-            </h2>
-            <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
-              <p>
-                Button Rock Labs is a product studio. We build and ship our own apps in healthcare, wellness, behavioral health, and lifestyle. These are categories where real user behavior is the only thing that matters.
-              </p>
-              <p>
-                Every product starts from a real community and gets tailored to that audience. We move with a bias toward action, test against actual users early, and build for the person on the other end of the screen, not the spec sheet.
-              </p>
-              <p>
-                Our team has spent three decades shipping products in regulated markets, including telecom, healthcare technology, and fintech. That background shapes how we approach trust, privacy, and the long arc of what it takes to get a product into someone's daily life.
-              </p>
-            </div>
-          </motion.div>
+        <motion.div
+          className="max-w-3xl mx-auto text-center"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-4">What We Do</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-5" style={{ fontFamily: "var(--font-display)" }}>
+            Three kinds of work
+          </h2>
+          <p className="text-muted-foreground text-lg leading-relaxed">
+            One operating principle: we earn our place by delivering value you can feel.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-14">
+          {useCases.map((uc, i) => (
+            <motion.div
+              key={i}
+              data-testid={`card-usecase-${i}`}
+              className="p-7 rounded-2xl bg-card border border-border/60 hover:border-primary/20 transition-colors flex flex-col"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+            >
+              <h3 className="font-bold text-xl mb-3" style={{ fontFamily: "var(--font-display)" }}>{uc.title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed flex-1">{uc.body}</p>
+              {uc.note && <p className="text-primary text-sm font-medium mt-4">{uc.note}</p>}
+            </motion.div>
+          ))}
         </div>
 
         <LabSection />
+      </div>
+    </section>
+  );
+}
+
+function HowWeWork() {
+  return (
+    <section id="how-we-work" className="py-28 bg-card border-y border-border/40">
+      <div className="max-w-3xl mx-auto px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-4">How We Work</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ fontFamily: "var(--font-display)" }}>
+            The work should earn its cost
+          </h2>
+          <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
+            <p>
+              We believe the value we create is what sets the price, not a timesheet. We are also honest that this is a journey. Good work creates value quickly and gets sharper over time, and we would rather optimize alongside you than hand you a rigid contract on day one. We shape each engagement around where you are and what the work is worth, and we keep it flexible as that gets clearer.
+            </p>
+            <p>
+              If you want to talk through what that could look like for your business, we are here for it.
+            </p>
+          </div>
+          <p className="text-sm text-muted-foreground/70 mt-8">
+            Coming soon: how we work, in detail.
+          </p>
+        </motion.div>
       </div>
     </section>
   );
@@ -518,6 +570,7 @@ export default function Home() {
       <Hero />
       <Philosophy />
       <Services />
+      <HowWeWork />
       <Products />
       <Support />
       <ContactCTA />
