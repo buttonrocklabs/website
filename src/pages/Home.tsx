@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import BrandMark from "@/components/BrandMark";
-import LabSection from "@/components/LabSection";
 
 import heroBg from "@/assets/images/hero-bg.png";
 import projectSober from "@/assets/images/project-sober.png";
@@ -346,8 +345,6 @@ function Services() {
             </motion.div>
           ))}
         </div>
-
-        <LabSection />
       </div>
     </section>
   );
