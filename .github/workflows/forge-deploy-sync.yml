@@ -1,0 +1,55 @@
+name: Forge deploy sync
+
+# LAB-161 — for the CF-Pages auto-deploy apps, merge to main IS the deploy.
+# On each push to main, scan the merge/squash commit message for this repo's
+# Forge item keys and flip them to category=Deployed via the Forge API.
+#
+# Requires a repo secret BRL_API_TOKEN (a BRL personal access token with Forge
+# write access). If it's unset the job no-ops, so it never blocks a deploy.
+#   gh secret set BRL_API_TOKEN --repo buttonrocklabs/website
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  forge-deploy-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - name: Mark mentioned Forge items Deployed
+        env:
+          PREFIX: BRL
+          BRL_API_TOKEN: ${{ secrets.BRL_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${BRL_API_TOKEN:-}" ]; then
+            echo "BRL_API_TOKEN not set — skipping Forge deploy sync (non-fatal)."
+            exit 0
+          fi
+          MSG="$(git log -1 --pretty=%B)"
+          KEYS="$(printf '%s' "$MSG" | grep -oE "\\b${PREFIX}-[0-9]+\\b" | sort -u || true)"
+          if [ -z "$KEYS" ]; then
+            echo "No ${PREFIX}-NNN keys in the merge commit message. Nothing to mark."
+            exit 0
+          fi
+          echo "Found keys: $(echo $KEYS | tr '\n' ' ')"
+          for KEY in $KEYS; do
+            CODE=$(curl -sS -o /tmp/forge_resp.json -w '%{http_code}' \
+              -X PATCH "https://lab.buttonrocklabs.com/api/forge/items/${KEY}" \
+              -H "Authorization: Bearer ${BRL_API_TOKEN}" \
+              -H "Content-Type: application/json" \
+              -d '{"category":"Deployed"}' || echo "000")
+            if [ "$CODE" = "200" ]; then
+              echo "✓ ${KEY} → Deployed"
+            else
+              echo "✗ ${KEY}: HTTP ${CODE} $(cat /tmp/forge_resp.json 2>/dev/null || true)"
+            fi
+          done
+          # Don't fail the workflow on a Forge hiccup — the deploy already happened.
+          exit 0
