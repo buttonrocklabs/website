@@ -6,7 +6,7 @@ name: Forge deploy sync
 #
 # Requires a repo secret BRL_API_TOKEN (a BRL personal access token with Forge
 # write access). If it's unset the job no-ops, so it never blocks a deploy.
-#   gh secret set BRL_API_TOKEN --repo buttonrocklabs/BRL_web
+#   gh secret set BRL_API_TOKEN --repo buttonrocklabs/website
 
 on:
   push:
