@@ -255,11 +255,19 @@ function Philosophy() {
           >
             <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-4">About</p>
             <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ fontFamily: "var(--font-display)" }}>
-              Built by a founder who ships
+              Why I do this
             </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed">
-              Button Rock Labs is not a fresh start. It is the culmination of a lifetime of curiosity, the place where three decades of building across telecom, healthcare technology, and fintech finally come together. Greg spent seven of those years as CEO of iVitaFi, a patient-financing platform reaching more than 400 healthcare locations, and kept circling the same conviction: a business earns its place when its customers carry its impact into the world. Everything learned along the way about shipping products, leading teams, and reading what people actually need is woven into how the studio works today.
-            </p>
+            <div className="space-y-5 text-muted-foreground text-lg leading-relaxed">
+              <p>
+                I spent three decades building across telecom, healthcare technology, and fintech, seven of them as CEO of iVitaFi, a patient-financing platform reaching more than 400 healthcare locations. I could have chased another round, another exit, another board seat. I would rather be at the bench.
+              </p>
+              <p>
+                What I love is the making: the tinkering, the restless “how could this be better, faster?” that never quite shuts off. So I built a studio where a former CEO actually does the work with you, from the first rough idea to a product that earns its place, and every stop in between.
+              </p>
+              <p>
+                I am at my best with people who have not figured it all out yet, who value the discovery as much as the destination, and who trust that we can iterate our way to something that works.
+              </p>
+            </div>
           </motion.div>
 
           <div className="grid grid-cols-1 gap-5">
