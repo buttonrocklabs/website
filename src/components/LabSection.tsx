@@ -1,38 +1,23 @@
 import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 
-/* The Lab: the tool grid rendered inside TheJourney section on Home.tsx,
-   grouped by journey stage (Trailhead / Switchbacks / Treeline / Ridgeline)
-   plus The Pack (cross-cutting gear). Tool list mirrors the Lab's canonical
-   registry (brl-client-tool-starter client/src/lib/labTools.ts) plus the two
-   planned stage tools, Belay and Gauge. Self-contained block: sub-heading +
-   grouped grids + closing line. No outer <section> wrapper so it inherits
-   container width from its parent. */
-
-type StageId = "trailhead" | "switchbacks" | "treeline" | "ridgeline" | "pack";
+/* The Lab: the 15-tool grid that renders inside the "What We Do" section
+   on Home.tsx (folded in below the prose intro). Self-contained block:
+   sub-heading + grid + closing line. No outer <section> wrapper so it
+   inherits container width from its parent. */
 
 type Tool = {
   name: string;
   kind: string;
-  stage: StageId;
   tagline: string;
   icon: ReactNode;
 };
-
-const STAGE_GROUPS: { id: StageId; name: string; blurb: string }[] = [
-  { id: "trailhead", name: "Trailhead", blurb: "Where the journey starts: the conversation becomes a brief." },
-  { id: "switchbacks", name: "Switchbacks", blurb: "Iterating up the steep part: identity, spec, prototype." },
-  { id: "treeline", name: "Treeline", blurb: "The build, in the open: quality gates and honest economics." },
-  { id: "ridgeline", name: "Ridgeline", blurb: "Operating at altitude: health, signal, and the flow, measured." },
-  { id: "pack", name: "The Pack", blurb: "Carried the whole way: the gear every climb depends on." },
-];
 
 const TOOLS: Tool[] = [
   {
     name: "Trailhead",
     kind: "Intake",
-    stage: "trailhead",
-    tagline: "Where projects start. Idea, brand, and audience flow into a hand-built concept brief.",
+    tagline: "Where projects start. Idea, brand, and audience flow into a seeded Forge project.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <line x1="4" y1="22" x2="4" y2="2" />
@@ -41,21 +26,8 @@ const TOOLS: Tool[] = [
     ),
   },
   {
-    name: "Quarry",
-    kind: "Extract",
-    stage: "trailhead",
-    tagline: "Turn call recordings, transcripts, and PDFs into intake material for the brief.",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 21l5-9 4 6 3-4 6 7" />
-        <path d="M3 21h18" />
-      </svg>
-    ),
-  },
-  {
     name: "Tenor",
     kind: "Voice",
-    stage: "switchbacks",
     tagline: "Distill brand voice from docs and transcripts. Lint new copy against it.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -66,9 +38,19 @@ const TOOLS: Tool[] = [
     ),
   },
   {
+    name: "Compass",
+    kind: "Audience",
+    tagline: "Map the audience: personas and the communities where they actually gather.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+      </svg>
+    ),
+  },
+  {
     name: "Campfire",
     kind: "Design",
-    stage: "switchbacks",
     tagline: "Community spec: channels, rituals, rewards, moderation.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -79,7 +61,6 @@ const TOOLS: Tool[] = [
   {
     name: "Forge",
     kind: "Build",
-    stage: "treeline",
     tagline: "Projects in flight: backlogs, sessions, benchmarks. Every prompt tracked.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -92,7 +73,6 @@ const TOOLS: Tool[] = [
   {
     name: "Chisel",
     kind: "Audit",
-    stage: "treeline",
     tagline: "Apple Human Interface Guidelines, applied automatically. Shapes UX to spec.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -105,24 +85,40 @@ const TOOLS: Tool[] = [
     ),
   },
   {
-    name: "Scout",
-    kind: "Quality",
-    stage: "treeline",
-    tagline: "Automated iPhone testing that walks every flow like a real user and brings back receipts.",
+    name: "Vault",
+    kind: "Secrets",
+    tagline: "Local secrets, Keychain-backed. Never in a config file. Never in a chat.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="7" cy="15" r="4" />
-        <circle cx="17" cy="15" r="4" />
-        <path d="M9 6l-2 5" />
-        <path d="M15 6l2 5" />
-        <path d="M9 6h6" />
+        <rect x="3" y="11" width="18" height="11" rx="2" />
+        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+      </svg>
+    ),
+  },
+  {
+    name: "Stoke",
+    kind: "Energy",
+    tagline: "AI usage at a glance: session and weekly capacity. Know when to push or rest.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+      </svg>
+    ),
+  },
+  {
+    name: "Quarry",
+    kind: "Extract",
+    tagline: "Mine text, audio, and images out of screen recordings and PDFs.",
+    icon: (
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 21l5-9 4 6 3-4 6 7" />
+        <path d="M3 21h18" />
       </svg>
     ),
   },
   {
     name: "Bedrock",
     kind: "Defense",
-    stage: "treeline",
     tagline: "Solid foundations: vulnerable deps, leaked secrets, exposed PII.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -132,21 +128,8 @@ const TOOLS: Tool[] = [
     ),
   },
   {
-    name: "Belay",
-    kind: "Deal",
-    stage: "treeline",
-    tagline: "How we tie in together: engagement shape and economics, agreed in the open.",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-      </svg>
-    ),
-  },
-  {
     name: "Sentinel",
     kind: "Health",
-    stage: "ridgeline",
     tagline: "Deploy health across every shipped project: uptime, SSL, bundle drift.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -158,7 +141,6 @@ const TOOLS: Tool[] = [
   {
     name: "Pulse",
     kind: "Metrics",
-    stage: "ridgeline",
     tagline: "Community vitals: DAU, retention, streaks, events. Across every app.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -169,7 +151,6 @@ const TOOLS: Tool[] = [
   {
     name: "Echo",
     kind: "Listen",
-    stage: "ridgeline",
     tagline: "Unified feedback inbox: App Store, email, in-app, and chat in one stream.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -178,68 +159,8 @@ const TOOLS: Tool[] = [
     ),
   },
   {
-    name: "Compass",
-    kind: "Experience",
-    stage: "ridgeline",
-    tagline: "Compare our experience to the competition's, find where they out-execute us, and fix it.",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="12" r="10" />
-        <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-      </svg>
-    ),
-  },
-  {
-    name: "Gauge",
-    kind: "Flow",
-    stage: "ridgeline",
-    tagline: "The stream gauge for the business: time saved, money saved, hassle gone, revenue earned.",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="m12 14 4-4" />
-        <path d="M3.34 19a10 10 0 1 1 17.32 0" />
-      </svg>
-    ),
-  },
-  {
-    name: "Capstone",
-    kind: "Showcase",
-    stage: "ridgeline",
-    tagline: "Case studies from the ridgeline: the stories that start the next climb.",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="8" r="7" />
-        <polyline points="8.21 13.89 7 22 12 19 17 22 15.79 13.89" />
-      </svg>
-    ),
-  },
-  {
-    name: "Vault",
-    kind: "Secrets",
-    stage: "pack",
-    tagline: "Encrypted secrets, never in a config file, never in a chat.",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="3" y="11" width="18" height="11" rx="2" />
-        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-      </svg>
-    ),
-  },
-  {
-    name: "Stoke",
-    kind: "Energy",
-    stage: "pack",
-    tagline: "AI usage at a glance: session and weekly capacity. Know when to push or rest.",
-    icon: (
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-      </svg>
-    ),
-  },
-  {
     name: "Codex",
     kind: "Memory",
-    stage: "pack",
     tagline: "Searchable memory across every project, spec, and decision we've made.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -249,24 +170,21 @@ const TOOLS: Tool[] = [
     ),
   },
   {
-    name: "Projects",
-    kind: "Map",
-    stage: "pack",
-    tagline: "The trail map: every artifact from every tool, per project, ready to share.",
+    name: "Capstone",
+    kind: "Showcase",
+    tagline: "Turn shipped projects into case studies. Close the loop on what we built.",
     icon: (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M9 3 3 5v16l6-2 6 2 6-2V3l-6 2-6-2z" />
-        <line x1="9" y1="3" x2="9" y2="19" />
-        <line x1="15" y1="5" x2="15" y2="21" />
+        <circle cx="12" cy="8" r="7" />
+        <polyline points="8.21 13.89 7 22 12 19 17 22 15.79 13.89" />
       </svg>
     ),
   },
 ];
 
 export default function LabSection() {
-  let toolNumber = 0;
   return (
-    <div className="mt-24">
+    <div className="mt-20">
       <div className="text-center max-w-2xl mx-auto mb-12">
         <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-3">
           Inside the Lab
@@ -275,64 +193,46 @@ export default function LabSection() {
           className="text-2xl md:text-3xl font-bold mb-4"
           style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}
         >
-          Nineteen tools. Four stages. One climb.
+          Fifteen tools. One creation process.
         </h3>
         <p className="text-muted-foreground leading-relaxed">
-          Every BRL app passes through here. We built each tool because we hit a
-          bottleneck on the way and refused to slow down.
+          Every BRL app passes through here, from intake to showcase. We built
+          each one because we hit a bottleneck on the way and refused to slow down.
         </p>
       </div>
 
-      <div className="space-y-12">
-        {STAGE_GROUPS.map((group) => {
-          const tools = TOOLS.filter((t) => t.stage === group.id);
-          return (
-            <div key={group.id} data-testid={`group-stage-${group.id}`}>
-              <div className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3 mb-5">
-                <h4 className="font-bold text-lg" style={{ fontFamily: "var(--font-display)" }}>
-                  {group.name}
-                </h4>
-                <p className="text-muted-foreground text-sm">{group.blurb}</p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {TOOLS.map((tool, i) => (
+          <motion.div
+            key={tool.name}
+            data-testid={`card-tool-${tool.name.toLowerCase()}`}
+            className="p-6 rounded-2xl bg-background border border-border/60 hover:border-primary/30 transition-colors group"
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.4, delay: (i % 3) * 0.05 }}
+          >
+            <div className="flex items-start gap-4 mb-3">
+              <div className="w-11 h-11 shrink-0 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/15 transition-colors">
+                {tool.icon}
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {tools.map((tool, i) => {
-                  toolNumber += 1;
-                  return (
-                    <motion.div
-                      key={tool.name}
-                      data-testid={`card-tool-${tool.name.toLowerCase()}`}
-                      className="p-6 rounded-2xl bg-background border border-border/60 hover:border-primary/30 transition-colors group"
-                      initial={{ opacity: 0, y: 16 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-50px" }}
-                      transition={{ duration: 0.4, delay: (i % 3) * 0.05 }}
-                    >
-                      <div className="flex items-start gap-4 mb-3">
-                        <div className="w-11 h-11 shrink-0 rounded-lg bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary/15 transition-colors">
-                          {tool.icon}
-                        </div>
-                        <div className="min-w-0">
-                          <h5
-                            className="font-bold text-base leading-tight"
-                            style={{ fontFamily: "var(--font-display)" }}
-                          >
-                            {tool.name}
-                          </h5>
-                          <p className="text-[10px] uppercase tracking-widest text-muted-foreground mt-1">
-                            {String(toolNumber).padStart(2, "0")} &middot; {tool.kind}
-                          </p>
-                        </div>
-                      </div>
-                      <p className="text-muted-foreground text-sm leading-relaxed">
-                        {tool.tagline}
-                      </p>
-                    </motion.div>
-                  );
-                })}
+              <div className="min-w-0">
+                <h4
+                  className="font-bold text-base leading-tight"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  {tool.name}
+                </h4>
+                <p className="text-[10px] uppercase tracking-widest text-muted-foreground mt-1">
+                  {String(i + 1).padStart(2, "0")} · {tool.kind}
+                </p>
               </div>
             </div>
-          );
-        })}
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              {tool.tagline}
+            </p>
+          </motion.div>
+        ))}
       </div>
 
       <p className="text-center text-sm text-muted-foreground mt-12 max-w-xl mx-auto leading-relaxed">

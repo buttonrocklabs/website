@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import LabSection from "@/components/LabSection";
 
 /* The Journey: the four-stage guided climb that organizes everything BRL does.
    Trailhead -> Switchbacks -> Treeline -> Ridgeline, with the summit left
    deliberately unclaimed (it belongs to the partner). Two personas drive the
    copy: an app idea, or a business workflow. Scope of the journey: concept to
-   cash flow. The Lab grid (LabSection) renders below, grouped by these same
-   stages. */
+   cash flow. Deliberately tool-free: the Lab's toolchain stays private (the
+   stage-grouped registry lives in the Lab app, not on the public site). */
 
 type Persona = "idea" | "flow";
 
@@ -18,7 +17,6 @@ type Stage = {
   artifact: Record<Persona, string>;
   gate: Record<Persona, string>;
   pace: string;
-  tools: string[];
   pills?: Record<Persona, string[] | null>;
 };
 
@@ -39,7 +37,6 @@ const STAGES: Stage[] = [
       flow: "Come back with the questions answered",
     },
     pace: "Days",
-    tools: ["Trailhead", "Quarry"],
   },
   {
     name: "Switchbacks",
@@ -57,7 +54,6 @@ const STAGES: Stage[] = [
       flow: "Your team's hands on it, and honest feedback",
     },
     pace: "A few weeks",
-    tools: ["Prototypes", "Tenor", "Campfire"],
   },
   {
     name: "Treeline",
@@ -75,7 +71,6 @@ const STAGES: Stage[] = [
       flow: "Economics we agree on together",
     },
     pace: "Weeks, not quarters",
-    tools: ["Forge", "Chisel", "Scout", "Bedrock", "Belay"],
   },
   {
     name: "Ridgeline",
@@ -93,7 +88,6 @@ const STAGES: Stage[] = [
       flow: "There is no gate up here. The summit ahead is yours.",
     },
     pace: "Ongoing",
-    tools: ["Sentinel", "Pulse", "Echo", "Compass", "Gauge", "Capstone"],
     pills: {
       idea: null,
       flow: ["Time saved", "Money saved", "Hassle gone"],
@@ -285,24 +279,13 @@ export default function TheJourney() {
                   ))}
                 </div>
               )}
-              <div className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-1.5 text-sm mb-5">
+              <div className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-1.5 text-sm">
                 <span className="text-muted-foreground">You walk away with</span>
                 <span className="text-foreground">{s.artifact[persona]}</span>
                 <span className="text-muted-foreground">The gate</span>
                 <span className="text-foreground">{s.gate[persona]}</span>
                 <span className="text-muted-foreground">The pace</span>
                 <span className="text-foreground">{s.pace}</span>
-              </div>
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-[11px] uppercase tracking-widest text-muted-foreground">On the bench</span>
-                {s.tools.map((t) => (
-                  <span
-                    key={t}
-                    className="px-2.5 py-0.5 rounded-full border border-border text-[12px] text-muted-foreground"
-                  >
-                    {t}
-                  </span>
-                ))}
               </div>
           </motion.div>
 
@@ -319,8 +302,6 @@ export default function TheJourney() {
             </a>
           </div>
         </div>
-
-        <LabSection />
       </div>
     </section>
   );
