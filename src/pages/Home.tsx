@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import BrandMark from "@/components/BrandMark";
+import TheJourney from "@/components/TheJourney";
+import FromTheFounder from "@/components/FromTheFounder";
 
 import heroBg from "@/assets/images/hero-bg.png";
 import projectSober from "@/assets/images/project-sober.png";
@@ -40,6 +42,7 @@ function NavBar() {
           {[
             { label: "About", href: "#about" },
             { label: "What We Do", href: "#services" },
+            { label: "Journey", href: "#journey" },
             { label: "Portfolio", href: "#portfolio" },
             { label: "Support", href: "#support" },
             { label: "Contact", href: "#contact" },
@@ -100,6 +103,7 @@ function NavBar() {
             {[
               { label: "About", href: "#about" },
               { label: "What We Do", href: "#services" },
+              { label: "Journey", href: "#journey" },
               { label: "Portfolio", href: "#portfolio" },
               { label: "Support", href: "#support" },
               { label: "Contact", href: "#contact" },
@@ -358,37 +362,6 @@ function Services() {
   );
 }
 
-function HowWeWork() {
-  return (
-    <section id="how-we-work" className="py-28 bg-card border-y border-border/40">
-      <div className="max-w-3xl mx-auto px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-        >
-          <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-4">How We Work</p>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6" style={{ fontFamily: "var(--font-display)" }}>
-            The work should earn its cost
-          </h2>
-          <div className="space-y-6 text-muted-foreground text-lg leading-relaxed">
-            <p>
-              We believe the value we create is what sets the price, not a timesheet. We are also honest that this is a journey. Good work creates value quickly and gets sharper over time, and we would rather optimize alongside you than hand you a rigid contract on day one. We shape each engagement around where you are and what the work is worth, and we keep it flexible as that gets clearer.
-            </p>
-            <p>
-              If you want to talk through what that could look like for your business, we are here for it.
-            </p>
-          </div>
-          <p className="text-sm text-muted-foreground/70 mt-8">
-            Coming soon: how we work, in detail.
-          </p>
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
 function Products() {
   return (
     <section id="portfolio" className="py-28">
@@ -575,8 +548,9 @@ export default function Home() {
       <Hero />
       <Philosophy />
       <Services />
-      <HowWeWork />
+      <TheJourney />
       <Products />
+      <FromTheFounder />
       <Support />
       <ContactCTA />
     </div>
