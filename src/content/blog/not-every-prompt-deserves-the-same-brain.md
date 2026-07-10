@@ -7,7 +7,7 @@ excerpt: "Building is cheap now, but intelligence is metered. The new waste is a
 readingTime: "7 min read"
 ---
 
-> Last month I watched my AI capacity gauge cross 90% before lunch. I keep one on the wall for exactly this reason, the way a shop keeps an eye on the compressor. I scrolled back through the morning to see what had eaten it. Renaming files. Reformatting a table. Moving a section of copy from one page to another. Not one decision in the pile. I had spent a morning of the most capable intelligence money can buy on work a fraction of it would have done identically.
+> Last month I watched my AI capacity gauge cross 90% before lunch. I keep it on my dashboard for exactly this reason, the way a shop keeps an eye on the lumber rack: you check what's left before you promise the next cut. I scrolled back through the morning to see what had eaten it. Renaming files. Reformatting a table. Moving a section of copy from one page to another. Not one decision in the pile. I had spent a morning of the most capable intelligence money can buy on work a fraction of it would have done identically.
 >
 > I had sent a surgeon to carry boxes. All morning. At surgeon rates.
 
@@ -23,9 +23,9 @@ Nobody plans their week around electricity because electricity is cheap and effe
 
 ## Staff the work like you would staff a team
 
-No operator I respect would send their principal engineer to reset a password. The assignment question is so obvious in a company that we do not even think of it as a decision. Junior work goes to junior people. The expensive judgment goes where mistakes are expensive.
+Most companies would never send their most senior engineer to reset a password. The assignment question is so obvious inside a company that we do not even think of it as a decision. Junior work goes to junior people. The expensive judgment goes where mistakes are expensive.
 
-Then the same operator sits down with an AI and does the opposite: one model, maximum effort, every prompt, all day. The default settings crown every task instead of staffing it.
+Then most of us sit down with an AI and do the opposite: one model, maximum effort, every prompt, all day. The default settings crown every task instead of staffing it.
 
 The fix is a ten-second triage before you type. Every piece of work is one of three things:
 
