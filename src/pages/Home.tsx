@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import BrandMark from "@/components/BrandMark";
 import TheJourney from "@/components/TheJourney";
+import FromTheFounder from "@/components/FromTheFounder";
 
 import heroBg from "@/assets/images/hero-bg.png";
 import projectSober from "@/assets/images/project-sober.png";
@@ -549,6 +550,7 @@ export default function Home() {
       <Services />
       <TheJourney />
       <Products />
+      <FromTheFounder />
       <Support />
       <ContactCTA />
     </div>
