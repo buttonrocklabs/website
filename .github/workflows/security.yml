@@ -16,24 +16,35 @@ permissions:
 
 jobs:
   gitleaks:
+    # Install + run gitleaks directly instead of gitleaks/gitleaks-action@v2.
+    # The action's partial-scan path (`<base>^..<head>`) intermittently
+    # fails to resolve the base commit's parent on PR runs even with
+    # fetch-depth: 0. Direct invocation also drops the Node 20 deprecation
+    # warning the action carried, and sidesteps the v3 upgrade entirely.
+    # Ported from brl-client-tool-starter (6272456).
     name: Secret scan (gitleaks)
     runs-on: ubuntu-latest
+    env:
+      GITLEAKS_VERSION: 8.24.3
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITLEAKS_ENABLE_UPLOAD_ARTIFACT: true
-          GITLEAKS_ENABLE_SUMMARY: true
+      - name: Install gitleaks
+        run: |
+          curl -sSL "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+            | tar -xz -C /tmp gitleaks
+          sudo mv /tmp/gitleaks /usr/local/bin/gitleaks
+          gitleaks version
+      - name: Scan repository
+        run: gitleaks detect --redact -v --no-banner --exit-code=1
 
   npm-audit:
     name: npm audit (high+)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 20
           cache: npm
