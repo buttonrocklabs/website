@@ -1,0 +1,26 @@
+name: CI
+# LAB-300: BRL_web deployed with no type gate at all (build was a bare
+# `vite build`, which does not typecheck). This runs the same `npm run
+# check` (tsc -b) the other two CF Pages repos have, on every PR and
+# push to main, so the gate cannot silently rot.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  typecheck:
+    name: Typecheck (tsc -b)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - run: npm run check
