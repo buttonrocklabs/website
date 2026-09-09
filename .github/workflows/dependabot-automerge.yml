@@ -50,8 +50,18 @@ jobs:
   automerge:
     name: Merge if routine and green
     runs-on: ubuntu-latest
-    # Cheap guard first so non-Dependabot pushes cost nothing.
-    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.actor.login == 'dependabot[bot]'
+    # Filter out push and schedule runs of Security, which have no PR. The
+    # AUTHORITATIVE Dependabot check is the PR-author lookup in the first step,
+    # which reads .user.login off the pull request and exits if it is anyone
+    # else -- that costs about ten seconds on a non-Dependabot PR.
+    #
+    # This deliberately does NOT also test workflow_run.actor. A manual re-run
+    # of Security rewrites that field to whoever clicked re-run, so testing it
+    # here made the job silently skip when a maintainer tried to retry a merge
+    # after fixing something. Since the author check is what actually gates the
+    # merge, keeping the cheap filter loose costs a few seconds per PR and buys
+    # back the ability to retry.
+    if: github.event.workflow_run.event == 'pull_request'
     timeout-minutes: 20
     env:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
