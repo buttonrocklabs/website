@@ -35,8 +35,16 @@ on:
     types: [completed]
 
 permissions:
+  # contents+pull-requests do the merge. checks+statuses are what the
+  # wait-for-green step reads, and a `permissions:` block sets every scope it
+  # does not name to none -- so leaving them out made
+  # repos/*/commits/*/check-runs return 403 "Resource not accessible by
+  # integration" the first time this ran against a real Dependabot PR (#479).
+  # The eligibility step had already passed; the job died at the gate.
   contents: write
   pull-requests: write
+  checks: read
+  statuses: read
 
 jobs:
   automerge:
