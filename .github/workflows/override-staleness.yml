@@ -1,0 +1,71 @@
+name: Override staleness
+# LAB-366: an `overrides` entry is invisible to Dependabot.
+#
+# Dependabot's npm updater reads dependencies / devDependencies /
+# peerDependencies. It will never bump an override and, more importantly, never
+# remove one after upstream fixes the thing the override was working around. So
+# every pin we place by hand becomes permanent unless something asks, on a
+# schedule, whether it is still earning its place.
+#
+# This does not gate anything and does not open a PR. Removing a pin is a
+# deliberate change (scripts/dependabot-eligibility.mjs refuses to auto-merge
+# any PR that touches `overrides`, for the same reason), so the right output is
+# a heads-up in one issue that gets updated rather than duplicated.
+
+on:
+  schedule:
+    # Mondays, an hour after the Security sweep, so a fresh advisory has already
+    # landed in the audit database before this asks its question.
+    - cron: "0 14 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  staleness:
+    name: Are our pins still needed?
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Check each override
+        id: check
+        run: |
+          set -euo pipefail
+          node scripts/check-redundant-overrides.mjs > /tmp/report.md
+          cat /tmp/report.md >> "$GITHUB_STEP_SUMMARY"
+          cat /tmp/report.md
+
+      # Only speak up when a pin has actually gone stale. A weekly "all fine"
+      # issue is the fastest way to teach everyone to filter this out.
+      - name: Open or update the heads-up issue
+        if: steps.check.outputs.has_redundant == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          TITLE="Dependency overrides that are no longer needed"
+          MARKER="<!-- lab-366-override-staleness -->"
+          { echo "$MARKER"; cat /tmp/report.md; } > /tmp/issue.md
+
+          existing=$(gh issue list --repo "$REPO" --state open --limit 100 \
+            --search "$TITLE in:title" --json number,title \
+            --jq "[.[] | select(.title == \"$TITLE\") | .number] | first // empty")
+
+          if [ -n "$existing" ]; then
+            gh issue edit "$existing" --repo "$REPO" --body-file /tmp/issue.md
+            echo "updated issue #$existing"
+          else
+            gh issue create --repo "$REPO" \
+              --title "$TITLE" \
+              --label dependencies \
+              --body-file /tmp/issue.md
+          fi
