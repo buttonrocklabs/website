@@ -1,4 +1,23 @@
 # LAB-76: Dependabot — weekly npm + GitHub Actions updates.
+#
+# LAB-366: dependabot.yml has no auto-merge setting of its own, so the landing
+# policy lives in .github/workflows/dependabot-automerge.yml instead. Short
+# version: dev-side bumps of any size, runtime bumps only at patch level, and
+# anything that touches `overrides` always waits for a human.
+#
+# Worth knowing in THIS repo: almost nothing here is dev-side. `typescript`,
+# `@types/*`, `@vitejs/plugin-react`, `@tailwindcss/vite` and `tw-animate-css`
+# all sit in `dependencies` rather than `devDependencies`, and they reach
+# `vite` from a production path, so all 98 packages in the lockfile read as
+# runtime. Until that split is corrected, auto-merge here effectively means
+# "patch bumps only" -- the grouped `patches` PR below still lands on its own,
+# but the dev-tooling minors and majors will wait for a human. Nothing is
+# unsafe about that, it is just less automation than the other two repos get.
+#
+# Dependabot cannot see `overrides` at all, so .github/workflows/override-staleness.yml
+# covers the other direction: noticing when one of our hand-placed pins has
+# stopped being necessary. There are no overrides here today; the watcher is
+# in place for the first one.
 
 version: 2
 updates:

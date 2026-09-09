@@ -1,0 +1,197 @@
+name: Dependabot auto-merge
+# LAB-366: land the routine bumps without a human, hold the rest.
+#
+# WHY THIS IS HAND-ROLLED rather than `gh pr merge --auto`:
+# GitHub's native auto-merge waits for REQUIRED status checks. This repo is
+# private on a free plan, so branch protection is unavailable and no check can
+# be marked required -- `allow_auto_merge` will not even turn on. On a repo with
+# zero required checks, `--auto` considers the requirements met the instant it
+# is called and merges immediately, CI still running. Since main auto-deploys to
+# production, that would ship unverified dependency bumps straight to users.
+# So the wait-for-green is done explicitly below.
+#
+# WHY `workflow_run` AND NOT `pull_request`:
+# a `pull_request`-triggered job appears as a check run on that same PR, so
+# anything that waits for "all checks to finish" would be waiting on itself.
+# `workflow_run` fires after Security concludes and is not attached to the PR,
+# which breaks that deadlock. Trade-off to know about: `workflow_run` only fires
+# for the copy of this file on the DEFAULT branch, so edits to it cannot be
+# tested from a PR -- they take effect once merged.
+#
+# WHY THREE REQUIRED CHECKS HERE and two in the other repos:
+# BRL_web runs a second PR workflow, CI / "Typecheck (tsc -b)" (LAB-300, added
+# because `vite build` does not typecheck and this site had no type gate at
+# all). It runs in parallel with Security, so it is usually still in flight
+# when this job starts -- the wait loop below handles that. It has to be named
+# in REQUIRED_CHECKS or a bump that breaks types could merge on the strength of
+# the two security checks alone.
+#
+# The eligibility policy lives in scripts/dependabot-eligibility.mjs. Short
+# version: dev-side anything, runtime patches only.
+
+on:
+  workflow_run:
+    workflows: ["Security"]
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  automerge:
+    name: Merge if routine and green
+    runs-on: ubuntu-latest
+    # Cheap guard first so non-Dependabot pushes cost nothing.
+    if: github.event.workflow_run.event == 'pull_request' && github.event.workflow_run.actor.login == 'dependabot[bot]'
+    timeout-minutes: 20
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      REPO: ${{ github.repository }}
+      HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+    steps:
+      - name: Find the pull request
+        id: pr
+        run: |
+          set -euo pipefail
+          # head_sha is more reliable than event.workflow_run.pull_requests,
+          # which comes back empty often enough to matter.
+          num=$(gh api "repos/$REPO/commits/$HEAD_SHA/pulls" \
+            --jq '[.[] | select(.state == "open")] | first | .number // empty')
+          if [ -z "$num" ]; then
+            echo "No open PR for $HEAD_SHA; nothing to do."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          author=$(gh api "repos/$REPO/pulls/$num" --jq '.user.login')
+          if [ "$author" != "dependabot[bot]" ]; then
+            echo "PR #$num is authored by $author, not Dependabot. Skipping."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          base=$(gh api "repos/$REPO/pulls/$num" --jq '.base.ref')
+          echo "PR #$num by $author into $base"
+          echo "found=true"    >> "$GITHUB_OUTPUT"
+          echo "number=$num"   >> "$GITHUB_OUTPUT"
+          echo "base_ref=$base" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v7
+        if: steps.pr.outputs.found == 'true'
+        with:
+          fetch-depth: 0
+
+      - name: Collect both sides of the manifest
+        if: steps.pr.outputs.found == 'true'
+        env:
+          BASE_REF: ${{ steps.pr.outputs.base_ref }}
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/base /tmp/head
+          for f in package.json package-lock.json; do
+            git show "origin/$BASE_REF:$f" > "/tmp/base/$f"
+            git show "$HEAD_SHA:$f"        > "/tmp/head/$f"
+          done
+
+      - name: Is this the kind of change we auto-merge?
+        if: steps.pr.outputs.found == 'true'
+        id: eligible
+        run: node scripts/dependabot-eligibility.mjs /tmp/base /tmp/head
+
+      # Everything below only runs for an eligible PR, so an ineligible one
+      # costs about fifteen seconds and is left sitting for review.
+      - name: Wait for every check on the head commit
+        if: steps.pr.outputs.found == 'true' && steps.eligible.outputs.eligible == 'true'
+        id: checks
+        env:
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+          # Named explicitly because there is no branch protection here to say
+          # "required". Without this list the logic below degrades to "nothing
+          # has failed", and a commit with NO checks reported would satisfy that
+          # and merge unverified. Each of these must be present AND successful.
+          REQUIRED_CHECKS: |
+            npm audit (high+)
+            Secret scan (gitleaks)
+            Typecheck (tsc -b)
+        run: |
+          set -euo pipefail
+          deadline=$(( SECONDS + 900 ))
+
+          while :; do
+            # A PR that moved on under us must not be merged on a stale verdict.
+            current=$(gh api "repos/$REPO/pulls/$PR_NUMBER" --jq '.head.sha')
+            if [ "$current" != "$HEAD_SHA" ]; then
+              echo "PR #$PR_NUMBER moved to $current since this run started. Standing down."
+              echo "green=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            # Actions and app checks land as check-runs; Cloudflare Pages and
+            # other integrations still post legacy commit statuses. Both count.
+            runs=$(gh api "repos/$REPO/commits/$HEAD_SHA/check-runs" --paginate \
+              --jq '.check_runs[] | "\(.status)|\(.conclusion // "")|\(.name)"')
+            statuses=$(gh api "repos/$REPO/commits/$HEAD_SHA/status" \
+              --jq '.statuses[] | "completed|\(.state)|\(.context)"')
+            all=$(printf '%s\n%s\n' "$runs" "$statuses" | sed '/^$/d')
+
+            # This job is not a PR check (workflow_run), so nothing to exclude.
+            pending=$(printf '%s\n' "$all" | awk -F'|' '$1 != "completed"' || true)
+            failed=$(printf '%s\n' "$all" \
+              | awk -F'|' '$1 == "completed" && $2 != "success" && $2 != "neutral" && $2 != "skipped"' || true)
+
+            if [ -n "$failed" ]; then
+              echo "Not merging. These checks did not pass:"
+              printf '%s\n' "$failed" | awk -F'|' '{print "  - " $3 " (" $2 ")"}'
+              echo "green=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            if [ -z "$pending" ]; then
+              # "Nothing failed" is not the same as "the gate ran". Prove each
+              # required check is actually present and green before merging.
+              missing=""
+              while IFS= read -r want; do
+                [ -z "$want" ] && continue
+                hit=$(printf '%s\n' "$all" \
+                  | awk -F'|' -v w="$want" '$3 == w && $1 == "completed" && $2 == "success"' || true)
+                [ -z "$hit" ] && missing="$missing  - $want\n"
+              done <<< "$REQUIRED_CHECKS"
+
+              if [ -n "$missing" ]; then
+                echo "Not merging. These required checks never reported success:"
+                printf "$missing"
+                echo "green=false" >> "$GITHUB_OUTPUT"
+                exit 0
+              fi
+
+              echo "All checks green:"
+              printf '%s\n' "$all" | awk -F'|' '{print "  - " $3}'
+              echo "green=true" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            if [ "$SECONDS" -ge "$deadline" ]; then
+              echo "Timed out waiting. Still pending:"
+              printf '%s\n' "$pending" | awk -F'|' '{print "  - " $3 " (" $1 ")"}'
+              echo "green=false" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+
+            printf '%s\n' "$pending" | awk -F'|' '{print "waiting on " $3}'
+            sleep 20
+          done
+
+      - name: Squash merge
+        if: steps.pr.outputs.found == 'true' && steps.eligible.outputs.eligible == 'true' && steps.checks.outputs.green == 'true'
+        env:
+          PR_NUMBER: ${{ steps.pr.outputs.number }}
+        run: |
+          set -euo pipefail
+          state=$(gh api "repos/$REPO/pulls/$PR_NUMBER" --jq '.mergeable_state')
+          if [ "$state" = "dirty" ] || [ "$state" = "blocked" ]; then
+            echo "PR #$PR_NUMBER is '$state'; leaving it for review."
+            exit 0
+          fi
+          gh pr merge "$PR_NUMBER" --squash --delete-branch
+          echo "Merged #$PR_NUMBER."
