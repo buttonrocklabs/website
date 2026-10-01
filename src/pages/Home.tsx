@@ -6,6 +6,7 @@ import TheJourney from "@/components/TheJourney";
 import FromTheFounder from "@/components/FromTheFounder";
 import LeadForm from "@/components/LeadForm";
 import TrailheadExamples from "@/components/TrailheadExamples";
+import EchoShowcase from "@/components/EchoShowcase";
 
 import heroBg from "@/assets/images/hero-bg.png";
 import projectSober from "@/assets/images/project-sober.png";
@@ -357,9 +358,9 @@ function Services() {
   );
 }
 
-const smStats = [
+const smStats: { value: string; star?: boolean; label: string }[] = [
   { value: "iOS + Android", label: "Live on the Apple App Store and Google Play" },
-  { value: "4.9+", label: "Average App Store rating" },
+  { value: "5.0", star: true, label: "Average App Store rating" },
   { value: "49x", label: "Growth in monthly revenue over its first four months" },
 ];
 
@@ -375,6 +376,27 @@ const smFeatureGroups = [
   {
     title: "Under the hood",
     items: ["Personalized home screen", "Push notification engine", "Subscriptions and paywalls on both stores", "Admin analytics and revenue dashboards"],
+  },
+];
+
+const echoStats = [
+  { value: "Mac App Store", label: "Coming soon, in TestFlight now" },
+  { value: "On-device", label: "Speech recognition runs on your Mac" },
+  { value: "Both sides", label: "Your mic and the call audio, recorded together" },
+];
+
+const echoFeatureGroups = [
+  {
+    title: "Capture",
+    items: ["Records your mic and the call audio together", "Asks before recording a detected call", "Participant consent notice", "Menu-bar controls with live levels and a timer"],
+  },
+  {
+    title: "Transcribe",
+    items: ["Live transcript as people speak", "Speakers separated and labeled", "Voices recognized across calls", "Vocabulary list for names and jargon"],
+  },
+  {
+    title: "Keep",
+    items: ["Summary and action items with owners", "Summary and Transcript in one tabbed view", "Auto-saves every meeting as Markdown plus audio", "Export a transcript or summary anywhere"],
   },
 ];
 
@@ -429,13 +451,20 @@ function Products() {
               The modern platform for growth beyond sobriety.
             </p>
             <p className="text-muted-foreground text-base mb-6 leading-relaxed">
-              A full-stack native community platform for people in alcohol recovery. Not a tracker. Not a crisis tool. A daily-use app where people connect, grow, and build lives they don't need to escape from.
+              A full-stack native community platform for people in alcohol recovery. More than just a tracker. Not a crisis tool. A daily-use app where people connect, grow, and build lives they don't need to escape from.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-2">
               {smStats.map((st) => (
                 <div key={st.value} className="rounded-xl bg-card border border-border/60 p-4">
-                  <p className="text-xl font-extrabold text-primary leading-tight" style={{ fontFamily: "var(--font-display)" }}>{st.value}</p>
+                  <p className="text-xl font-extrabold text-primary leading-tight flex items-center gap-1.5" style={{ fontFamily: "var(--font-display)" }}>
+                    {st.value}
+                    {st.star && (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-label="stars" role="img">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                      </svg>
+                    )}
+                  </p>
                   <p className="text-xs text-muted-foreground leading-snug mt-1">{st.label}</p>
                 </div>
               ))}
@@ -465,22 +494,51 @@ function Products() {
 
         <motion.div
           data-testid="card-project-echo"
-          className="mt-16 p-8 md:p-10 rounded-2xl bg-card border border-border/60 grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 lg:gap-12"
-          initial={{ opacity: 0, y: 30 }}
+          className="mt-24 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start"
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
         >
           <div>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-[11px] font-semibold uppercase tracking-wider mb-4">
-              In development
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-[11px] font-semibold uppercase tracking-wider mb-5">
+              Coming to the Mac App Store
             </span>
-            <h3 className="text-2xl font-bold mb-1" style={{ fontFamily: "var(--font-display)" }}>Echo</h3>
-            <p className="text-primary text-sm font-medium">A Mac meeting recorder that listens and keeps the notes.</p>
+            <h3 className="text-2xl md:text-3xl font-bold mb-2" style={{ fontFamily: "var(--font-display)" }}>Echo</h3>
+            <p className="text-primary text-sm font-medium mb-4">A Mac meeting recorder that listens, transcribes, and keeps the notes.</p>
+            <p className="text-muted-foreground text-base mb-6 leading-relaxed">
+              Echo began as a question: what do MacWhisper, Audio Hijack, and Just Press Record leave undone? It records both sides of a call, writes the transcript as people speak, and hands you the summary and the action items when it ends. Everything runs on your Mac.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+              {echoStats.map((st) => (
+                <div key={st.value} className="rounded-xl bg-card border border-border/60 p-4">
+                  <p className="text-xl font-extrabold text-primary leading-tight" style={{ fontFamily: "var(--font-display)" }}>{st.value}</p>
+                  <p className="text-xs text-muted-foreground leading-snug mt-1">{st.label}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              {echoFeatureGroups.map((g) => (
+                <div key={g.title}>
+                  <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-3">{g.title}</p>
+                  <ul className="space-y-2">
+                    {g.items.map((item) => (
+                      <li key={item} className="flex gap-2 text-sm text-foreground leading-snug">
+                        <Check />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
           </div>
-          <p className="text-muted-foreground leading-relaxed">
-            Echo began as a question: what do MacWhisper, Audio Hijack, and Just Press Record leave undone? It records both sides of a call and shows a live transcript while you talk. It is being built the way every BRL product is: scouted against the market first, then shipped in small, tested steps.
-          </p>
+
+          <div>
+            <EchoShowcase />
+          </div>
         </motion.div>
 
         <TrailheadExamples />
