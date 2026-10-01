@@ -95,17 +95,34 @@ export const onRequestPost = async ({ request, env }: { request: Request; env: E
       ${touchRows("Last touch", attribution.last)}
     </table>`;
 
-  const res = await fetch("https://api.brevo.com/v3/smtp/email", {
-    method: "POST",
-    headers: { "api-key": env.BREVO_API_KEY, "Content-Type": "application/json", Accept: "application/json" },
-    body: JSON.stringify({
-      sender: { name: "BRL website", email: from },
-      to: [{ email: to }],
-      replyTo: { email, name },
-      subject: `[BRL lead: ${utm}] ${INTENTS[intent]}: ${name}`,
-      htmlContent: html,
-    }),
-  });
+  let res: Response;
+  try {
+    res = await fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: { "api-key": env.BREVO_API_KEY, "Content-Type": "application/json", Accept: "application/json" },
+      body: JSON.stringify({
+        sender: { name: "BRL website", email: from },
+        to: [{ email: to }],
+        replyTo: { email, name },
+        subject: `[BRL lead: ${utm}] ${INTENTS[intent]}: ${name}`,
+        htmlContent: html,
+      }),
+    });
+  } catch {
+    return json({ error: "send_failed", brevo: "unreachable" }, 502);
+  }
 
-  return res.ok ? json({ ok: true }) : json({ error: "send_failed" }, 502);
+  if (res.ok) return json({ ok: true });
+
+  // Brevo's error code and status are safe to surface (they never contain the key)
+  // and are the fastest way to see why a send failed, e.g. 401 unauthorized for an
+  // unrecognised IP, or 400 invalid_parameter for an unvalidated sender.
+  let code = "";
+  try {
+    code = clean(((await res.json()) as { code?: unknown }).code, 60);
+  } catch {
+    /* non-JSON error body */
+  }
+  console.error("brevo send failed", res.status, code);
+  return json({ error: "send_failed", brevo: `${res.status}${code ? " " + code : ""}` }, 502);
 };

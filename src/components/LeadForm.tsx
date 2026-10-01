@@ -26,6 +26,15 @@ const SOURCES = [
 
 type Status = "idle" | "sending" | "sent" | "error";
 
+async function failureRef(res: Response): Promise<string> {
+  try {
+    const j = (await res.json()) as { error?: string; brevo?: string };
+    return [res.status, j.error, j.brevo].filter(Boolean).join(" ");
+  } catch {
+    return String(res.status);
+  }
+}
+
 const field =
   "w-full rounded-xl border border-border bg-card px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40";
 const label = "block text-[12px] font-semibold uppercase tracking-widest text-muted-foreground mb-1.5 text-left";
@@ -34,6 +43,7 @@ export default function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
   const [status, setStatus] = useState<Status>("idle");
   const [intent, setIntent] = useState("");
   const [source, setSource] = useState("");
+  const [ref, setRef] = useState("");
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -64,8 +74,14 @@ export default function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
           page: window.location.pathname,
         }),
       });
-      setStatus(res.ok ? "sent" : "error");
+      if (res.ok) {
+        setStatus("sent");
+      } else {
+        setRef(await failureRef(res));
+        setStatus("error");
+      }
     } catch {
+      setRef("network");
       setStatus("error");
     }
   }
@@ -164,6 +180,7 @@ export default function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
           <p role="alert" className="text-sm text-muted-foreground">
             That did not go through. You can email me directly at{" "}
             <a href="mailto:greg@buttonrocklabs.com" className="text-primary">greg@buttonrocklabs.com</a>.
+            {ref && <span className="block text-[11px] mt-1">Reference: {ref}</span>}
           </p>
         )}
       </div>
