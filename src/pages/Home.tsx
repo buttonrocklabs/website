@@ -4,9 +4,19 @@ import { Link } from "react-router-dom";
 import BrandMark from "@/components/BrandMark";
 import TheJourney from "@/components/TheJourney";
 import FromTheFounder from "@/components/FromTheFounder";
+import LeadForm from "@/components/LeadForm";
 
 import heroBg from "@/assets/images/hero-bg.png";
 import projectSober from "@/assets/images/project-sober.png";
+
+const NAV_LINKS = [
+  { label: "Journey", href: "#journey" },
+  { label: "About", href: "#about" },
+  { label: "What I Build", href: "#services" },
+  { label: "Portfolio", href: "#portfolio" },
+  { label: "Support", href: "#support" },
+  { label: "Contact", href: "#contact" },
+];
 
 function NavBar() {
   const [scrolled, setScrolled] = useState(false);
@@ -39,14 +49,7 @@ function NavBar() {
         </a>
 
         <nav className="hidden md:flex items-center gap-8">
-          {[
-            { label: "About", href: "#about" },
-            { label: "What We Do", href: "#services" },
-            { label: "Journey", href: "#journey" },
-            { label: "Portfolio", href: "#portfolio" },
-            { label: "Support", href: "#support" },
-            { label: "Contact", href: "#contact" },
-          ].map((link) => (
+          {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -100,14 +103,7 @@ function NavBar() {
           className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border"
         >
           <nav className="max-w-6xl mx-auto px-6 py-6 flex flex-col gap-4">
-            {[
-              { label: "About", href: "#about" },
-              { label: "What We Do", href: "#services" },
-              { label: "Journey", href: "#journey" },
-              { label: "Portfolio", href: "#portfolio" },
-              { label: "Support", href: "#support" },
-              { label: "Contact", href: "#contact" },
-            ].map((link) => (
+            {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -162,7 +158,7 @@ function Hero() {
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-secondary border border-primary/10 text-[12px] font-semibold text-secondary-foreground mb-8 tracking-wide uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            Colorado Front Range
+            Product studio &middot; Lyons, Colorado
           </div>
         </motion.div>
 
@@ -173,9 +169,8 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
         >
-          <span className="block">We bring people together.</span>
-          <span className="block">We demonstrate <span className="text-primary" style={{ fontFamily: "var(--font-script)", fontWeight: 700, fontSize: "1.4em" }}>your</span> value.</span>
-          <span className="block">We build software that fits <span className="text-primary" style={{ fontFamily: "var(--font-script)", fontWeight: 700, fontSize: "1.4em" }}>your</span> business.</span>
+          <span className="block">Concept to cash flow,</span>
+          <span className="block">at <span className="text-primary" style={{ fontFamily: "var(--font-script)", fontWeight: 700, fontSize: "1.4em" }}>agent speed.</span></span>
         </motion.h1>
 
         <motion.p
@@ -184,10 +179,10 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          We build community platforms, decision tools, and custom business
-          software. One principle runs through all of it: the value we create is
-          what earns its cost. Built on the Colorado Front Range, shipped wherever
-          the work lives.
+          I am Greg Falconer, a former CEO with three decades in telecom,
+          healthcare technology, and fintech. I build with AI agents now. Bring
+          me a rough idea or a messy workflow. I will test it against the market,
+          then ship the real product, in weeks instead of quarters.
         </motion.p>
 
         <motion.div
@@ -197,18 +192,18 @@ function Hero() {
           transition={{ duration: 0.7, delay: 0.3 }}
         >
           <a
-            href="#portfolio"
-            data-testid="button-explore-work"
+            href="#contact"
+            data-testid="button-start-hero"
             className="inline-flex items-center justify-center h-13 px-8 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
           >
-            See our work
+            Start at the Trailhead
           </a>
           <a
-            href="#contact"
-            data-testid="button-contact-hero"
+            href="#portfolio"
+            data-testid="button-explore-work"
             className="inline-flex items-center justify-center h-13 px-8 rounded-full border border-border bg-card text-foreground font-semibold text-sm hover:bg-muted transition-colors"
           >
-            Get in touch
+            See what I've built
           </a>
         </motion.div>
       </motion.div>
@@ -248,7 +243,7 @@ const features = [
 
 function Philosophy() {
   return (
-    <section id="about" className="py-28 bg-card border-y border-border/40">
+    <section id="about" className="py-28">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           <motion.div
@@ -279,7 +274,7 @@ function Philosophy() {
               <motion.div
                 key={i}
                 data-testid={`card-feature-${i}`}
-                className="p-6 rounded-2xl bg-background border border-border/60 hover:border-primary/20 transition-colors group"
+                className="p-6 rounded-2xl bg-card border border-border/60 hover:border-primary/20 transition-colors group"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
@@ -303,26 +298,26 @@ const useCases = [
   {
     title: "Bring people together",
     body:
-      "We build native community platforms with the connective tissue already in place: real-time chat, live meetings, challenges, journaling, and coaching. For mission-driven companies whose customers are the ones who carry the impact forward.",
+      "I build native community platforms with the connective tissue already in place: real-time chat, live meetings, challenges, journaling, and coaching. For mission-driven companies whose customers are the ones who carry the impact forward.",
     note: "Live: Sober Motivation, a recovery community on the App Store.",
   },
   {
     title: <>Demonstrate <span className="text-primary" style={{ fontFamily: "var(--font-script)", fontWeight: 700, fontSize: "1.4em" }}>your</span> value</>,
     body:
-      "We build interactive sales tools and decision-grade walkthroughs that let people feel complex value instead of reading about it. For B2B teams whose product is powerful but hard to grasp from a slide.",
+      "I build interactive sales tools and decision-grade walkthroughs that let people feel complex value instead of reading about it. For B2B teams whose product is powerful but hard to grasp from a slide.",
     note: "A live example is on the way.",
   },
   {
     title: "Run your business your way",
     body:
-      "We build AI-native custom software shaped around the way your business actually works, instead of bending your business to fit the tool. For operators who have outgrown spreadsheets and been let down by one-size-fits-all software. Development is no longer the bottleneck, and customization no longer requires a platform, so the software can change at the speed of your business.",
+      "I build AI-native custom software shaped around the way your business actually works, instead of bending your business to fit the tool. For operators who have outgrown spreadsheets and been let down by one-size-fits-all software. Development is no longer the bottleneck, and customization no longer requires a platform, so the software can change at the speed of your business.",
     note: null,
   },
 ];
 
 function Services() {
   return (
-    <section id="services" className="py-28">
+    <section id="services" className="py-28 bg-card border-y border-border/40">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           className="max-w-3xl mx-auto text-center"
@@ -333,7 +328,7 @@ function Services() {
         >
           <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-4">What We Do</p>
           <h2 className="text-3xl md:text-4xl font-bold mb-5" style={{ fontFamily: "var(--font-display)" }}>
-            Three kinds of work
+            What I build
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
             One operating principle: we earn our place by delivering value you can feel.
@@ -345,7 +340,7 @@ function Services() {
             <motion.div
               key={i}
               data-testid={`card-usecase-${i}`}
-              className="p-7 rounded-2xl bg-card border border-border/60 hover:border-primary/20 transition-colors flex flex-col"
+              className="p-7 rounded-2xl bg-background border border-border/60 hover:border-primary/20 transition-colors flex flex-col"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -470,23 +465,26 @@ function ContactCTA() {
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-6" style={{ fontFamily: "var(--font-display)" }}>
-            Ready to build something human?
+            Bring me the idea. Or the mess.
           </h2>
           <p className="text-background/70 text-lg mb-10 leading-relaxed">
-            We make things, then we share them with the people who'll do something good
-            with them, through partnerships, licenses, or clean transfers. If that's a
-            conversation you want to have, we're here for it.
+            Every engagement starts at the Trailhead: a conversation, then the
+            whole thing on paper. Tell me what you are working on and I will take
+            it from there.
           </p>
-          <a
-            href="mailto:greg@buttonrocklabs.com"
-            data-testid="button-contact"
-            className="inline-flex items-center gap-2 h-14 px-10 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
-          >
-            Get in Touch
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-            </svg>
-          </a>
+
+          <LeadForm idPrefix="contact" />
+
+          <p className="text-background/60 text-sm mt-8 leading-relaxed">
+            We make things, then we share them with the people who'll do something good
+            with them, through partnerships, licenses, or clean transfers.
+          </p>
+          <p className="text-background/60 text-sm mt-3">
+            Prefer email?{" "}
+            <a href="mailto:greg@buttonrocklabs.com" data-testid="button-contact" className="text-primary hover:opacity-80 transition-opacity">
+              greg@buttonrocklabs.com
+            </a>
+          </p>
 
           <div className="mt-12 text-background/80 text-sm leading-relaxed">
             <p className="font-semibold text-background mb-1 flex items-center justify-center gap-2">
@@ -546,9 +544,9 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <NavBar />
       <Hero />
+      <TheJourney />
       <Philosophy />
       <Services />
-      <TheJourney />
       <Products />
       <FromTheFounder />
       <Support />

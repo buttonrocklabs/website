@@ -75,6 +75,9 @@ export default function Privacy() {
               This is a marketing website. We collect only what you voluntarily send us, typically an email to <a href="mailto:greg@buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">greg@buttonrocklabs.com</a> or <a href="mailto:info@buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">info@buttonrocklabs.com</a>.
             </p>
             <p>
+              If you use the contact form, we receive what you type, plus where you came from (for example a tagged link or the site that referred you). That source note is kept in your own browser until you send the form, and it is used only to learn which channels bring people to us.
+            </p>
+            <p>
               Standard server logs may record your IP address and basic request information for operational and security purposes. We do not use analytics, tracking pixels, or advertising cookies on this site.
             </p>
           </Section>
