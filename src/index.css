@@ -6,7 +6,6 @@
 @theme inline {
   --font-sans: "Inter", sans-serif;
   --font-display: "Inter", sans-serif;
-  --font-script: "Dancing Script", cursive;
 
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -151,4 +150,21 @@
   border: 1px solid hsl(var(--border));
   border-radius: 4px;
   padding: 0.1em 0.35em;
+}
+/* Echo showcase: gentle live-waveform motion on the Home portfolio card. */
+@keyframes echo-bar {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+.echo-bar {
+  transform-origin: center;
+  animation: echo-bar 1.6s ease-in-out infinite;
+}
+@keyframes echo-caret {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.echo-caret { animation: echo-caret 1.1s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .echo-bar, .echo-caret { animation: none; }
 }

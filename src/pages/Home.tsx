@@ -4,9 +4,20 @@ import { Link } from "react-router-dom";
 import BrandMark from "@/components/BrandMark";
 import TheJourney from "@/components/TheJourney";
 import FromTheFounder from "@/components/FromTheFounder";
+import LeadForm from "@/components/LeadForm";
+import TrailheadExamples from "@/components/TrailheadExamples";
+import EchoShowcase from "@/components/EchoShowcase";
 
 import heroBg from "@/assets/images/hero-bg.png";
 import projectSober from "@/assets/images/project-sober.png";
+
+const NAV_LINKS = [
+  { label: "Journey", href: "#journey" },
+  { label: "About", href: "#about" },
+  { label: "What I Build", href: "#services" },
+  { label: "Portfolio", href: "#portfolio" },
+  { label: "Get in Touch", href: "#contact" },
+];
 
 function NavBar() {
   const [scrolled, setScrolled] = useState(false);
@@ -39,14 +50,7 @@ function NavBar() {
         </a>
 
         <nav className="hidden md:flex items-center gap-8">
-          {[
-            { label: "About", href: "#about" },
-            { label: "What We Do", href: "#services" },
-            { label: "Journey", href: "#journey" },
-            { label: "Portfolio", href: "#portfolio" },
-            { label: "Support", href: "#support" },
-            { label: "Contact", href: "#contact" },
-          ].map((link) => (
+          {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -100,14 +104,7 @@ function NavBar() {
           className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border"
         >
           <nav className="max-w-6xl mx-auto px-6 py-6 flex flex-col gap-4">
-            {[
-              { label: "About", href: "#about" },
-              { label: "What We Do", href: "#services" },
-              { label: "Journey", href: "#journey" },
-              { label: "Portfolio", href: "#portfolio" },
-              { label: "Support", href: "#support" },
-              { label: "Contact", href: "#contact" },
-            ].map((link) => (
+            {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
@@ -162,7 +159,7 @@ function Hero() {
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-secondary border border-primary/10 text-[12px] font-semibold text-secondary-foreground mb-8 tracking-wide uppercase">
             <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            Colorado Front Range
+            Product studio &middot; Lyons, Colorado
           </div>
         </motion.div>
 
@@ -173,9 +170,8 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.1 }}
         >
-          <span className="block">We bring people together.</span>
-          <span className="block">We demonstrate <span className="text-primary" style={{ fontFamily: "var(--font-script)", fontWeight: 700, fontSize: "1.4em" }}>your</span> value.</span>
-          <span className="block">We build software that fits <span className="text-primary" style={{ fontFamily: "var(--font-script)", fontWeight: 700, fontSize: "1.4em" }}>your</span> business.</span>
+          <span className="block">Concept to cash flow,</span>
+          <span className="block">in <span className="text-primary">weeks.</span></span>
         </motion.h1>
 
         <motion.p
@@ -184,10 +180,10 @@ function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.2 }}
         >
-          We build community platforms, decision tools, and custom business
-          software. One principle runs through all of it: the value we create is
-          what earns its cost. Built on the Colorado Front Range, shipped wherever
-          the work lives.
+          I am Greg Falconer, a former CEO with three decades in telecom,
+          healthcare technology, and fintech. I build with AI now, which turns
+          a climb that used to take quarters into weeks. Bring me a rough idea
+          or a messy workflow, and I will show you what is worth building.
         </motion.p>
 
         <motion.div
@@ -197,18 +193,18 @@ function Hero() {
           transition={{ duration: 0.7, delay: 0.3 }}
         >
           <a
-            href="#portfolio"
-            data-testid="button-explore-work"
+            href="#contact"
+            data-testid="button-start-hero"
             className="inline-flex items-center justify-center h-13 px-8 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
           >
-            See our work
+            Get in touch
           </a>
           <a
-            href="#contact"
-            data-testid="button-contact-hero"
+            href="#journey"
+            data-testid="button-see-how"
             className="inline-flex items-center justify-center h-13 px-8 rounded-full border border-border bg-card text-foreground font-semibold text-sm hover:bg-muted transition-colors"
           >
-            Get in touch
+            See how it works
           </a>
         </motion.div>
       </motion.div>
@@ -248,7 +244,7 @@ const features = [
 
 function Philosophy() {
   return (
-    <section id="about" className="py-28 bg-card border-y border-border/40">
+    <section id="about" className="py-28">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
           <motion.div
@@ -279,7 +275,7 @@ function Philosophy() {
               <motion.div
                 key={i}
                 data-testid={`card-feature-${i}`}
-                className="p-6 rounded-2xl bg-background border border-border/60 hover:border-primary/20 transition-colors group"
+                className="p-6 rounded-2xl bg-card border border-border/60 hover:border-primary/20 transition-colors group"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
@@ -303,26 +299,26 @@ const useCases = [
   {
     title: "Bring people together",
     body:
-      "We build native community platforms with the connective tissue already in place: real-time chat, live meetings, challenges, journaling, and coaching. For mission-driven companies whose customers are the ones who carry the impact forward.",
+      "I build native community platforms with the connective tissue already in place: real-time chat, live meetings, challenges, journaling, and coaching. For mission-driven companies whose customers are the ones who carry the impact forward.",
     note: "Live: Sober Motivation, a recovery community on the App Store.",
   },
   {
-    title: <>Demonstrate <span className="text-primary" style={{ fontFamily: "var(--font-script)", fontWeight: 700, fontSize: "1.4em" }}>your</span> value</>,
+    title: <>Demonstrate <span className="text-primary">your</span> value</>,
     body:
-      "We build interactive sales tools and decision-grade walkthroughs that let people feel complex value instead of reading about it. For B2B teams whose product is powerful but hard to grasp from a slide.",
+      "I build interactive sales tools and decision-grade walkthroughs that let people feel complex value instead of reading about it. For B2B teams whose product is powerful but hard to grasp from a slide.",
     note: "A live example is on the way.",
   },
   {
     title: "Run your business your way",
     body:
-      "We build AI-native custom software shaped around the way your business actually works, instead of bending your business to fit the tool. For operators who have outgrown spreadsheets and been let down by one-size-fits-all software. Development is no longer the bottleneck, and customization no longer requires a platform, so the software can change at the speed of your business.",
+      "I build AI-native custom software shaped around the way your business actually works, instead of bending your business to fit the tool. For operators who have outgrown spreadsheets and been let down by one-size-fits-all software. Development is no longer the bottleneck, and customization no longer requires a platform, so the software can change at the speed of your business.",
     note: null,
   },
 ];
 
 function Services() {
   return (
-    <section id="services" className="py-28">
+    <section id="services" className="py-28 bg-card border-y border-border/40">
       <div className="max-w-6xl mx-auto px-6">
         <motion.div
           className="max-w-3xl mx-auto text-center"
@@ -333,7 +329,7 @@ function Services() {
         >
           <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-4">What We Do</p>
           <h2 className="text-3xl md:text-4xl font-bold mb-5" style={{ fontFamily: "var(--font-display)" }}>
-            Three kinds of work
+            What I build
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
             One operating principle: we earn our place by delivering value you can feel.
@@ -345,7 +341,7 @@ function Services() {
             <motion.div
               key={i}
               data-testid={`card-usecase-${i}`}
-              className="p-7 rounded-2xl bg-card border border-border/60 hover:border-primary/20 transition-colors flex flex-col"
+              className="p-7 rounded-2xl bg-background border border-border/60 hover:border-primary/20 transition-colors flex flex-col"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
@@ -362,99 +358,190 @@ function Services() {
   );
 }
 
+const smStats: { value: string; star?: boolean; label: string }[] = [
+  { value: "iOS + Android", label: "Live on the Apple App Store and Google Play" },
+  { value: "5.0", star: true, label: "Average App Store rating" },
+  { value: "49x", label: "Growth in monthly revenue over its first four months" },
+];
+
+const smFeatureGroups = [
+  {
+    title: "Daily practice",
+    items: ["Sober Vitals daily goals dashboard", "Sobriety tracking and milestones", "AI journaling with sentiment analysis", "Achievements, badges, and a challenge and coin system"],
+  },
+  {
+    title: "Community",
+    items: ["Curated community channels", "Direct messages and voice messaging", "Meeting scheduling with in-app video", "Podcasts built in"],
+  },
+  {
+    title: "Under the hood",
+    items: ["Personalized home screen", "Push notification engine", "Subscriptions and paywalls on both stores", "Admin analytics and revenue dashboards"],
+  },
+];
+
+const echoStats = [
+  { value: "Mac App Store", label: "Coming soon, in TestFlight now" },
+  { value: "On-device", label: "Speech recognition runs on your Mac" },
+  { value: "Both sides", label: "Your mic and the call audio, recorded together" },
+];
+
+const echoFeatureGroups = [
+  {
+    title: "Capture",
+    items: ["Records your mic and the call audio together", "Asks before recording a detected call", "Participant consent notice", "Menu-bar controls with live levels and a timer"],
+  },
+  {
+    title: "Transcribe",
+    items: ["Live transcript as people speak", "Speakers separated and labeled", "Voices recognized across calls", "Vocabulary list for names and jargon"],
+  },
+  {
+    title: "Keep",
+    items: ["Summary and action items with owners", "Summary and Transcript in one tabbed view", "Auto-saves every meeting as Markdown plus audio", "Export a transcript or summary anywhere"],
+  },
+];
+
+function Check() {
+  return (
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--primary))" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 mt-1.5">
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  );
+}
+
 function Products() {
   return (
     <section id="portfolio" className="py-28">
       <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center max-w-2xl mx-auto mb-20">
+        <div className="text-center max-w-2xl mx-auto mb-16">
           <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-4">Portfolio</p>
           <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: "var(--font-display)" }}>
-            What we've built
+            What I've built
           </h2>
           <p className="text-muted-foreground text-lg">
-            A real platform with live users, shipped directly to you. Every BRL app starts from our shared engine and gets tailored to the humans it's built for.
+            Real products with real users, shipped from one shared engine and tailored to the humans they serve.
           </p>
         </div>
 
-        <div>
-          {/* Sober Motivation */}
-          <motion.div
-            data-testid="card-project-sober"
-            className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7 }}
-          >
-            <div className="order-2 lg:order-1 relative rounded-2xl overflow-hidden border border-border/50 group aspect-[4/3]">
-              <img
-                src={projectSober}
-                alt="Sober Motivation App"
-                className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            </div>
-
-            <div className="order-1 lg:order-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-[11px] font-semibold uppercase tracking-wider mb-5">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                Published
-              </span>
-              <h3 className="text-2xl md:text-3xl font-bold mb-2" style={{ fontFamily: "var(--font-display)" }}>
-                Sober Motivation
-              </h3>
-              <p className="text-primary text-sm font-medium mb-4">
-                The modern platform for growth beyond sobriety.
-              </p>
-              <p className="text-muted-foreground text-base mb-6 leading-relaxed">
-                A full-stack native community platform built for people in alcohol recovery. Not a tracker. Not a crisis tool. A daily-use app where people connect, grow, and build lives they don't need to escape from. Live on the App Store with an active user base and 250K+ podcast audience driving growth.
-              </p>
-              <div className="grid grid-cols-2 gap-x-6 gap-y-2 mb-6">
-                {["Sober Vitals dashboard", "Live community meetings", "AI-powered journaling", "Curated community channels", "Voice messaging & DMs", "Challenge & coin system", "Personalized home screen", "Push notification engine"].map((item, i) => (
-                  <div key={i} className="flex items-center gap-2 text-sm text-foreground">
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="hsl(var(--primary))" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
-                      <polyline points="20 6 9 17 4 12"/>
-                    </svg>
-                    {item}
-                  </div>
-                ))}
-              </div>
-              <p className="text-xs text-muted-foreground">
-                React · TypeScript · Node.js · PostgreSQL · Capacitor iOS · RevenueCat
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Support() {
-  return (
-    <section id="support" className="py-28 bg-card border-y border-border/40">
-      <div className="max-w-3xl mx-auto px-6 text-center">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          data-testid="card-project-sober"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start"
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7 }}
         >
-          <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-4">Support</p>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ fontFamily: "var(--font-display)" }}>
-            Need help with your app or design?
-          </h2>
-          <p className="text-muted-foreground text-lg mb-8 leading-relaxed">
-            Already working with us, or running into trouble with a BRL-built app or design engagement? Reach out and we'll get back to you quickly.
-          </p>
-          <a
-            href="mailto:greg@buttonrocklabs.com?subject=Support%20Request"
-            data-testid="button-support"
-            className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
-          >
-            Contact Support
-          </a>
+          <div className="order-2 lg:order-1 relative rounded-2xl overflow-hidden border border-border/50 group aspect-[4/3]">
+            <img
+              src={projectSober}
+              alt="Sober Motivation App"
+              className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+          </div>
+
+          <div className="order-1 lg:order-2">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary text-[11px] font-semibold uppercase tracking-wider mb-5">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+              Published
+            </span>
+            <h3 className="text-2xl md:text-3xl font-bold mb-2" style={{ fontFamily: "var(--font-display)" }}>
+              Sober Motivation
+            </h3>
+            <p className="text-primary text-sm font-medium mb-4">
+              The modern platform for growth beyond sobriety.
+            </p>
+            <p className="text-muted-foreground text-base mb-6 leading-relaxed">
+              A full-stack native community platform for people in alcohol recovery. More than just a tracker. Not a crisis tool. A daily-use app where people connect, grow, and build lives they don't need to escape from.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-2">
+              {smStats.map((st) => (
+                <div key={st.value} className="rounded-xl bg-card border border-border/60 p-4">
+                  <p className="text-xl font-extrabold text-primary leading-tight flex items-center gap-1.5" style={{ fontFamily: "var(--font-display)" }}>
+                    {st.value}
+                    {st.star && (
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-label="stars" role="img">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                      </svg>
+                    )}
+                  </p>
+                  <p className="text-xs text-muted-foreground leading-snug mt-1">{st.label}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-[11px] text-muted-foreground mb-8">As of August 2026.</p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-6">
+              {smFeatureGroups.map((g) => (
+                <div key={g.title}>
+                  <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-3">{g.title}</p>
+                  <ul className="space-y-2">
+                    {g.items.map((item) => (
+                      <li key={item} className="flex gap-2 text-sm text-foreground leading-snug">
+                        <Check />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              React · TypeScript · Node.js · PostgreSQL · Capacitor (iOS and Android) · RevenueCat
+            </p>
+          </div>
         </motion.div>
+
+        <motion.div
+          data-testid="card-project-echo"
+          className="mt-24 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.7 }}
+        >
+          <div>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-[11px] font-semibold uppercase tracking-wider mb-5">
+              Coming to the Mac App Store
+            </span>
+            <h3 className="text-2xl md:text-3xl font-bold mb-2" style={{ fontFamily: "var(--font-display)" }}>Echo</h3>
+            <p className="text-primary text-sm font-medium mb-4">A Mac meeting recorder that listens, transcribes, and keeps the notes.</p>
+            <p className="text-muted-foreground text-base mb-6 leading-relaxed">
+              Echo began as a question: what do MacWhisper, Audio Hijack, and Just Press Record leave undone? It records both sides of a call, writes the transcript as people speak, and hands you the summary and the action items when it ends. Everything runs on your Mac.
+            </p>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+              {echoStats.map((st) => (
+                <div key={st.value} className="rounded-xl bg-card border border-border/60 p-4">
+                  <p className="text-xl font-extrabold text-primary leading-tight" style={{ fontFamily: "var(--font-display)" }}>{st.value}</p>
+                  <p className="text-xs text-muted-foreground leading-snug mt-1">{st.label}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+              {echoFeatureGroups.map((g) => (
+                <div key={g.title}>
+                  <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground mb-3">{g.title}</p>
+                  <ul className="space-y-2">
+                    {g.items.map((item) => (
+                      <li key={item} className="flex gap-2 text-sm text-foreground leading-snug">
+                        <Check />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <EchoShowcase />
+          </div>
+        </motion.div>
+
+        <TrailheadExamples />
       </div>
     </section>
   );
@@ -470,23 +557,33 @@ function ContactCTA() {
       <div className="relative z-10 max-w-6xl mx-auto px-6">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-3xl md:text-5xl font-bold mb-6" style={{ fontFamily: "var(--font-display)" }}>
-            Ready to build something human?
+            Bring me the idea. Or the mess.
           </h2>
           <p className="text-background/70 text-lg mb-10 leading-relaxed">
-            We make things, then we share them with the people who'll do something good
-            with them, through partnerships, licenses, or clean transfers. If that's a
-            conversation you want to have, we're here for it.
+            Every engagement starts at the Trailhead: a conversation, then the
+            whole thing on paper. Tell me what you are working on and I will take
+            it from there.
           </p>
-          <a
-            href="mailto:greg@buttonrocklabs.com"
-            data-testid="button-contact"
-            className="inline-flex items-center gap-2 h-14 px-10 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity"
-          >
-            Get in Touch
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-            </svg>
-          </a>
+
+          <LeadForm idPrefix="contact" />
+
+          <p className="text-background/60 text-sm mt-8 leading-relaxed">
+            We make things, then we share them with the people who'll do something good
+            with them, through partnerships, licenses, or clean transfers.
+          </p>
+          <p className="text-background/60 text-sm mt-3">
+            Already working with me and need help with an app?{" "}
+            <a href="mailto:greg@buttonrocklabs.com?subject=Support%20Request" data-testid="button-support" className="text-primary hover:opacity-80 transition-opacity">
+              Send a support request
+            </a>
+            .
+          </p>
+          <p className="text-background/60 text-sm mt-3">
+            Prefer email?{" "}
+            <a href="mailto:greg@buttonrocklabs.com" data-testid="button-contact" className="text-primary hover:opacity-80 transition-opacity">
+              greg@buttonrocklabs.com
+            </a>
+          </p>
 
           <div className="mt-12 text-background/80 text-sm leading-relaxed">
             <p className="font-semibold text-background mb-1 flex items-center justify-center gap-2">
@@ -546,12 +643,11 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <NavBar />
       <Hero />
+      <TheJourney />
       <Philosophy />
       <Services />
-      <TheJourney />
       <Products />
       <FromTheFounder />
-      <Support />
       <ContactCTA />
     </div>
   );

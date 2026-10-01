@@ -120,17 +120,19 @@ export default function TheJourney() {
         >
           <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-4">The Journey</p>
           <h2 className="text-3xl md:text-4xl font-bold mb-3" style={{ fontFamily: "var(--font-display)" }}>
-            From concept to cash flow.{" "}
-            <span
-              className="text-primary block md:inline"
-              style={{ fontFamily: "var(--font-script)", fontWeight: 700, fontSize: "1.25em" }}
-            >
-              The summit is yours.
-            </span>
+            Every idea is a mountain.{" "}
+            <span className="text-primary block md:inline">The summit is yours.</span>
           </h2>
+          <p className="text-muted-foreground text-lg leading-relaxed mb-4">
+            Every concept, product, and business process is a climb. Some look
+            gentle from the parking lot and turn out to be steep. A trail makes
+            the climb knowable: marked stages, honest checkpoints, and a guide
+            who has been up before.
+          </p>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            Four stages. Each one ends with something real in your hands, and a
-            gate that tells us both whether to keep climbing.
+            Four stages, from concept to cash flow. Each one ends with something
+            real in your hands, and a gate that tells us both whether to keep
+            climbing. The first stage is the Trailhead.
           </p>
         </motion.div>
 
