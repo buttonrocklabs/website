@@ -16,6 +16,7 @@ const INTENTS: Record<string, string> = {
   workflow: "Messy workflow",
   partner: "Collaboration or partnership",
   press: "Press, podcast, or speaking",
+  support: "Support request",
   other: "Something else",
 };
 

@@ -26,7 +26,8 @@ export default function Start() {
         </h1>
         <p className="text-lg text-muted-foreground leading-relaxed mb-10">
           I am Greg Falconer, a former CEO with three decades across telecom, healthcare technology, and fintech.
-          Every engagement starts here: a conversation, then the whole thing on paper.
+          I think of any concept, product, or business process as a mountain trail: some climbs are gentle, some are steep, and it helps to know which before you start.
+          The Trailhead is where every climb begins, with a conversation and then the whole thing on paper.
         </p>
 
         <ol className="grid grid-cols-1 gap-4 mb-12">

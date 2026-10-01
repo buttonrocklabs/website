@@ -11,6 +11,7 @@ export const INTENTS = [
   { value: "workflow", label: "My business runs on a messy workflow" },
   { value: "partner", label: "Collaboration or partnership" },
   { value: "press", label: "Press, podcast, or speaking" },
+  { value: "support", label: "Support for an app I built with you" },
   { value: "other", label: "Something else" },
 ];
 
@@ -156,7 +157,7 @@ export default function LeadForm({ idPrefix = "lead" }: { idPrefix?: string }) {
           data-testid="button-lead-submit"
           className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition-opacity disabled:opacity-60"
         >
-          {status === "sending" ? "Sending..." : "Start at the Trailhead"}
+          {status === "sending" ? "Sending..." : "Get in touch"}
         </button>
 
         {status === "error" && (
