@@ -6,6 +6,7 @@ import Terms from "./pages/Terms";
 import BlogIndex from "./pages/BlogIndex";
 import BlogPost from "./pages/BlogPost";
 import Start from "./pages/Start";
+import SignalFire from "./pages/SignalFire";
 import { captureAttribution } from "./lib/attribution";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/start" element={<Start />} />
+          <Route path="/signal-fire" element={<SignalFire />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/blog" element={<BlogIndex />} />
