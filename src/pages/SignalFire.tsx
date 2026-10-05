@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import ClipPlayer from "@/components/ClipPlayer";
 import { BlogNav, BlogFooter } from "@/pages/BlogIndex";
 
-/* /signal-fire: unlisted partner showcase. No nav link, no sitemap entry,
+/* Unlisted partner showcase at an unguessable path (sf-<token>). No nav link, no sitemap entry,
    noindex meta here plus an X-Robots-Tag header in public/_headers.
-   Clips live in public/signal-fire/ (720x1280, H.264, AAC). */
+   Clips live in public/sf-137e1454fe33ace25e674267c66e5d16/ (720x1280, H.264, AAC). */
 
 type Clip = {
   id: string;
@@ -277,8 +277,8 @@ function ClipCard({ clip }: { clip: Clip }) {
   return (
     <article className="flex flex-col gap-3 p-4 rounded-2xl bg-card border border-border/60 min-w-0">
       <ClipPlayer
-        src={`/signal-fire/${clip.file}.mp4`}
-        poster={`/signal-fire/${clip.file}.jpg`}
+        src={`/sf-137e1454fe33ace25e674267c66e5d16/${clip.file}.mp4`}
+        poster={`/sf-137e1454fe33ace25e674267c66e5d16/${clip.file}.jpg`}
         label={`${clip.title}, ${clip.length}`}
       />
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[12px] uppercase tracking-widest text-muted-foreground">
