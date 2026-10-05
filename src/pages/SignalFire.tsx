@@ -166,6 +166,111 @@ const STAGES: Stage[] = [
       },
     ],
   },
+  {
+    n: 5,
+    date: "Oct 5, 2026",
+    title: "Host voice ads",
+    tried:
+      "One ad for each voice: Brad, Gabe, Melissa and Sober Dave. Brad and Gabe use their own First 30 video. Melissa and Dave only have audio in the app, so each gets a real photo and a waveform that moves with their real audio.",
+    learned:
+      "A voice ad is a pick of the right 20 seconds plus the same template. The audio-only versions are the weakest pictures, so they need real footage to compete. Nothing is cloned and no word was added.",
+    clips: [
+      {
+        id: "s5-brad",
+        file: "s5-brad",
+        title: "Brad",
+        who: "Brad, SM founder",
+        length: "25 s",
+        hook: "“You decided, and the deciding is the part most people never actually get to.”",
+        takeaway: "Angle: day one. Real First 30 footage, two cuts.",
+      },
+      {
+        id: "s5-gabe",
+        file: "s5-gabe",
+        title: "Gabe",
+        who: "Gabe, SM host",
+        length: "24 s",
+        hook: "“Almost everybody tracks sober days like they are serving a prison sentence.”",
+        takeaway: "Angle: track the gains, not just the days. Real First 30 footage, two cuts.",
+      },
+      {
+        id: "s5-melissa",
+        file: "s5-melissa",
+        title: "Melissa",
+        who: "Melissa, SM host",
+        length: "24 s",
+        hook: "“Removing alcohol is probably one of the hardest things you’ve done.”",
+        takeaway: "Angle: if you did one hard thing, you can do others. Her podcast audio over her photo.",
+      },
+      {
+        id: "s5-dave",
+        file: "s5-dave",
+        title: "Sober Dave",
+        who: "Sober Dave, SM host",
+        length: "27 s",
+        hook: "“Welcome to One for the Road, the podcast for anyone building a life beyond alcohol.”",
+        takeaway: "Angle: the show intro. His own audio over his photo.",
+      },
+    ],
+  },
+  {
+    n: 6,
+    date: "Oct 5, 2026",
+    title: "AI lip-sync on real footage",
+    tried:
+      "Can free tools make a host look natural on camera when the footage is already theirs? We re-synced the mouth in real First 30 footage to a different recording of the same host's voice. Every clip carries an on-screen label.",
+    learned:
+      "It works when real footage drives it, because the blinks and head motion stay real. Animating a still photo does not. Eyes and head freeze and the lower face goes flat, so audio-only hosts need a short phone clip instead.",
+    clips: [
+      {
+        id: "s6-brad",
+        file: "s6-brad",
+        title: "Brad, re-synced",
+        who: "Brad, AI lip-synced, real audio",
+        length: "10 s",
+        hook: "“If today is day one for you...”",
+        takeaway: "Real footage with the mouth re-synced to his own voice. The strongest result so far.",
+      },
+      {
+        id: "s6-gabe",
+        file: "s6-gabe",
+        title: "Gabe, re-synced",
+        who: "Gabe, AI lip-synced, real audio",
+        length: "10 s",
+        hook: "A different recording of his own voice over his own footage.",
+        takeaway: "A big grin in the source gets a smaller generated mouth, so it is a little off. Still usable.",
+      },
+    ],
+  },
+  {
+    n: 7,
+    date: "Oct 5, 2026",
+    title: "Coaching: Jess",
+    tried:
+      "Two clips with Jess Lopez, CPRC. The first is her own words, uncut, with SM copy about 1-on-1 coaching. The second is a new script about booking a session, in a voice cloned from her First 30 audio, with her mouth re-synced on her real footage.",
+    learned:
+      "The cloned voice scores 0.960 against her real one, where two real clips of her score about 0.97. The new script still needs her sign-off on the exact words before any use, and coaching is not yet on for members.",
+    clips: [
+      {
+        id: "s7-jess",
+        file: "s7-jess",
+        title: "Jess, real words",
+        who: "Jess Lopez, CPRC, SM host",
+        length: "20 s",
+        hook: "“You do not have to solve any of this today.”",
+        takeaway: "Her words, uncut, from First 30 day 9. The coaching copy on the card is SM text.",
+      },
+      {
+        id: "s7-jess-scripted",
+        file: "s7-jess-scripted",
+        title: "Jess, new script",
+        who: "Jess Lopez, CPRC, AI voice and animation",
+        length: "24 s",
+        hook: "“You can book a private video session with a recovery coach.”",
+        takeaway: "A scripted booking pitch in her cloned voice. A draft for review, labeled as AI on screen.",
+      },
+    ],
+  },
 ];
 
 function ClipCard({ clip }: { clip: Clip }) {
@@ -229,7 +334,7 @@ export default function SignalFire() {
           className="text-[clamp(2rem,5vw,3.25rem)] leading-[1.1] font-extrabold mb-5 max-w-3xl"
           style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}
         >
-          Four rounds of clips, from first test to real hosts.
+          Seven rounds of clips, from first test to hosts and a coach.
         </h1>
         <div className="max-w-3xl flex flex-col gap-4 mb-12">
           <p className="text-lg text-muted-foreground leading-relaxed">
@@ -293,35 +398,35 @@ export default function SignalFire() {
             </li>
           ))}
 
-          <li className="relative pl-6 sm:pl-8 border-l border-dashed border-border" data-testid="stage-5">
+          <li className="relative pl-6 sm:pl-8 border-l border-dashed border-border" data-testid="stage-8">
             <span
               className="absolute -left-[13px] top-0 w-6 h-6 rounded-full bg-card border border-border text-muted-foreground text-[12px] font-bold flex items-center justify-center"
               aria-hidden="true"
             >
-              5
+              8
             </span>
             <p className="text-[12px] font-semibold text-primary uppercase tracking-widest mb-2">
-              Stage 5 &middot; In progress
+              Stage 8 &middot; Next
             </p>
             <h2
               className="text-2xl md:text-3xl font-bold mb-4"
               style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.02em" }}
             >
-              Next: animated photo for audio-only hosts
+              Audio-only hosts on camera
             </h2>
             <div className="p-5 rounded-2xl bg-card border border-border/60 max-w-3xl">
               <p className="text-sm leading-relaxed">
-                Some hosts only have audio in the app. We are running a test of a labeled,
-                AI-animated talking photo for them. It is in progress and there is no clip to show
-                yet.
+                Melissa and Sober Dave each send a 10-second phone clip. Then the same re-sync
+                that worked for Brad and Gabe gives them a natural on-camera ad, and we post the
+                first round for an organic test.
               </p>
             </div>
           </li>
         </ol>
 
         <p className="text-sm text-muted-foreground leading-relaxed mt-16 pt-6 border-t border-border/50 max-w-3xl">
-          Clips with a scripted conversation are labeled as dramatizations. Every host who appears
-          in these clips has agreed to appear.
+          Clips with a scripted conversation are labeled as dramatizations. Clips with an AI voice or
+          AI lip-sync say so on screen. Every host who appears in these clips has agreed to appear.
         </p>
       </main>
       <BlogFooter />
