@@ -534,6 +534,14 @@ function Products() {
                 </div>
               ))}
             </div>
+            <Link
+              to="/echo"
+              className="inline-flex items-center gap-2 mt-8 text-sm font-semibold text-primary hover:opacity-80 transition-opacity"
+              data-testid="link-echo-page"
+            >
+              More about Echo
+              <span aria-hidden="true">&rarr;</span>
+            </Link>
           </div>
 
           <div>
