@@ -5,28 +5,45 @@ import { BlogNav, BlogFooter } from "@/pages/BlogIndex";
 
 export const ECHO_SUPPORT_EMAIL = "support@buttonrocklabs.com";
 
-/* Sets document.title and the description meta for the life of the page (client side only,
-   same pattern as Terms.tsx). */
-export function useEchoMeta(title: string, description: string) {
+/* Sets document.title, the description meta and the og/twitter title, description and image
+   for the life of the page (client side only, same pattern as Terms.tsx). Scrapers that do not
+   run JavaScript still read the site-wide tags in index.html. */
+export function useEchoMeta(title: string, description: string, ogImage?: string) {
   useEffect(() => {
     const prevTitle = document.title;
     document.title = title;
-    let el = document.querySelector('meta[name="description"]') as HTMLMetaElement | null;
-    let created = false;
-    const prevDesc = el?.content;
-    if (!el) {
-      el = document.createElement("meta");
-      el.name = "description";
-      document.head.appendChild(el);
-      created = true;
+
+    const targets: Array<[string, string]> = [
+      ['meta[name="description"]', description],
+      ['meta[property="og:title"]', title],
+      ['meta[property="og:description"]', description],
+      ['meta[name="twitter:title"]', title],
+      ['meta[name="twitter:description"]', description],
+    ];
+    if (ogImage) {
+      targets.push(
+        ['meta[property="og:image"]', ogImage],
+        ['meta[property="og:image:secure_url"]', ogImage],
+        ['meta[name="twitter:image"]', ogImage],
+      );
     }
-    el.content = description;
+
+    const restores: Array<() => void> = [];
+    for (const [selector, value] of targets) {
+      const el = document.querySelector(selector) as HTMLMetaElement | null;
+      if (!el) continue;
+      const prev = el.content;
+      el.content = value;
+      restores.push(() => {
+        el.content = prev;
+      });
+    }
+
     return () => {
       document.title = prevTitle;
-      if (created) el?.remove();
-      else if (el && prevDesc !== undefined) el.content = prevDesc;
+      restores.forEach((r) => r());
     };
-  }, [title, description]);
+  }, [title, description, ogImage]);
 }
 
 export function EchoFooterLinks() {
