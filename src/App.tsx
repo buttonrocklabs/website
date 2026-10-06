@@ -5,6 +5,8 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import BlogIndex from "./pages/BlogIndex";
 import BlogPost from "./pages/BlogPost";
+import EchoPrivacy from "./pages/EchoPrivacy";
+import EchoSupport from "./pages/EchoSupport";
 import Start from "./pages/Start";
 import SignalFire from "./pages/SignalFire";
 import { captureAttribution } from "./lib/attribution";
@@ -23,6 +25,8 @@ function App() {
           <Route path="/sf-137e1454fe33ace25e674267c66e5d16" element={<SignalFire />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/echo/privacy" element={<EchoPrivacy />} />
+          <Route path="/echo/support" element={<EchoSupport />} />
           <Route path="/blog" element={<BlogIndex />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
         </Routes>
