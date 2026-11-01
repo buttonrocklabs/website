@@ -108,7 +108,7 @@ export default function Privacy() {
               In addition to the marketing site above, Button Rock Labs operates a small ecosystem of web tools for clients and partners: the Lab (<a href="https://lab.buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">lab.buttonrocklabs.com</a>) and per-app subdomains such as Vision Board (<a href="https://visionboard.buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">visionboard.buttonrocklabs.com</a>). When you sign in to one of these tools, we process the following:
             </p>
             <p>
-              <strong className="text-foreground">Identity.</strong> Your email, name, and (if you sign in via Google) your Google profile information, supplied through our authentication provider Clerk. We do not store passwords ourselves.
+              <strong className="text-foreground">Identity.</strong> Your email, name, and (if you sign in via Google) your Google profile information, supplied through Cloudflare Access, which signs you in with your Google account. We do not store passwords ourselves.
             </p>
             <p>
               <strong className="text-foreground">Application data.</strong> The minimum needed to run the tool you're using. For Vision Board, this means Google Sheet IDs, sheet metadata, and image references. We never read or store the contents of your Sheet beyond what's required to render it back to you.
@@ -126,10 +126,15 @@ export default function Privacy() {
               For the Lab and connected app tools we rely on a small number of trusted infrastructure providers:
             </p>
             <ul className="list-disc pl-5 space-y-2">
-              <li><strong className="text-foreground">Clerk</strong>: authentication, session management, and user records.</li>
-              <li><strong className="text-foreground">Cloudflare</strong>: application hosting (Pages + Workers), the D1 database, and R2 object storage for images.</li>
-              <li><strong className="text-foreground">Google</strong>: only when you explicitly authorize Google Sheets access for a tool like Vision Board. We request the narrowest scope needed (read/write to Sheets you authorize); we no longer request Drive scopes.</li>
+              <li><strong className="text-foreground">Cloudflare</strong>: sign-in and session management (Cloudflare Access), application hosting (Pages + Workers), the D1 database, and R2 object storage for images.</li>
+              <li><strong className="text-foreground">Google</strong>: sign-in, where your Google account is the identity Cloudflare Access verifies. Also Sheets access, only when you explicitly authorize it for a tool like Vision Board. We request the narrowest scope needed (read/write to Sheets you authorize); we no longer request Drive scopes.</li>
             </ul>
+          </Section>
+
+          <Section heading="Social publishing (Signal Fire)">
+            <p>
+              Button Rock Labs also runs Signal Fire, an internal tool that publishes our own content to our own social accounts, including a Pinterest business account for Sober Motivation. When a team member connects Pinterest, we use Pinterest's standard sign-in (OAuth). We never see or store the Pinterest password. We store the access and refresh tokens Pinterest gives us in an encrypted vault. We also store the account username, board names and ids, the id and link of each pin we publish, and performance numbers for those pins. We use this only to publish and review our own pins. We do not sell or share it, use it for advertising, or use it to train AI models. You can revoke access at any time from your Pinterest account settings. To have this data deleted, email <a href="mailto:greg@buttonrocklabs.com" className="text-primary hover:opacity-80 transition-opacity">greg@buttonrocklabs.com</a> and we will delete it within 30 days.
+            </p>
           </Section>
 
           <Section heading="Retention &amp; your data rights">
@@ -155,7 +160,7 @@ export default function Privacy() {
           </Section>
 
           <div className="pt-8 border-t border-border/40 text-xs text-muted-foreground">
-            Last updated: April 2026
+            Last updated: November 1, 2026
           </div>
         </div>
       </motion.main>
