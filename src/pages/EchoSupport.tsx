@@ -49,7 +49,7 @@ export default function EchoSupport() {
 
       <EchoSection heading="Common questions">
         <p>
-          <strong className="text-foreground">Echo needs the internet when I first open it.</strong> It downloads its speech and speaker models once. After that it works without a connection.
+          <strong className="text-foreground">Echo needs the internet when I first open it.</strong> It downloads its speech and speaker models once, when you choose Download Speech Models or first record. After that it works without a connection. Cloud storage, if you turn it on, also needs a connection.
         </p>
         <p>
           <strong className="text-foreground">I do not get summaries.</strong> Summaries use Apple's on-device model, so they need a Mac that supports Apple Intelligence with it turned on in System Settings.
