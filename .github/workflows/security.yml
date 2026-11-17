@@ -49,5 +49,10 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci --no-audit --no-fund
-      - name: Fail on high+ vulnerabilities
-        run: npm audit --audit-level=high
+      # LAB-698: same audit as `npm audit --audit-level=high`, plus the scoped,
+      # expiring exceptions in .github/audit-exceptions.json. Any other high or
+      # critical advisory, an expired entry, or an excepted advisory that reaches
+      # the production tree still fails the job. The job name is unchanged on
+      # purpose: dependabot-automerge.yml requires a check called exactly this.
+      - name: Fail on high+ vulnerabilities (exceptions apply)
+        run: node scripts/audit-gate.mjs
